@@ -1,0 +1,58 @@
+---
+import Nav from '../components/Nav.astro';
+import SEO from '../components/SEO.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <SEO title={title} description={description} />
+  </head>
+  <body class="min-h-screen antialiased">
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <footer id="site-footer" class="bg-[#000000] px-6 py-4 text-sm text-white/65">
+      <div class="mx-auto grid w-full max-w-6xl gap-3 md:grid-cols-3">
+        <section>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.12em] text-white" style="font-family: 'DM Sans', Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">Who We Are</h3>
+          <ul class="mt-1 space-y-1">
+            <li><a href="/about" class="transition hover:text-white">About</a></li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.12em] text-white" style="font-family: 'DM Sans', Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">Resources</h3>
+          <ul class="mt-1 space-y-1">
+            <li><a href="/about" class="transition hover:text-white">Who is Jesus Christ? Why should I know?</a></li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.12em] text-white" style="font-family: 'DM Sans', Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">Connect</h3>
+          <ul class="mt-1 space-y-1">
+            <li><a href="mailto:info@jilbit.com" class="transition hover:text-white">Contact</a></li>
+          </ul>
+        </section>
+      </div>
+      <p class="mx-auto mt-1 w-full max-w-6xl border-t border-white/10 py-0.5 text-center leading-tight">© 2026 JILBIT</p>
+    </footer>
+  </body>
+</html>

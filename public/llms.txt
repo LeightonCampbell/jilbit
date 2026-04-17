@@ -1,0 +1,12 @@
+# JILBIT.com
+
+## Mission
+JILBIT stands for "Jesus Is Lord, Believe It."
+The ministry exists to proclaim the lordship of Jesus Christ through biblical teaching, discipleship, outreach, and practical service.
+
+## Core Pages
+- / : Home and acronym feature overview.
+- /about : Ministry story and "Why it matters."
+- /blog : Articles, testimonies, and teaching posts.
+- /outreach : Summer Jamaica Outreach campaign information.
+- /donate : Donation page with one-time or recurring giving options.

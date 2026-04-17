@@ -1,17 +1,283 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { jamaicaFund, jamaicaFundProgress } from '../data/fundraising';
+import { mayFundraiserEvent } from '../data/events';
 
+const articleFeatures = [
+  {
+    category: 'Theology',
+    title: 'The Top 10 Questions Christians Are Still Debating',
+    author: 'Veronica Olson Neffinger',
+    href: '/trending',
+    style: 'from-[#2e1a0e] to-[#5c3d2e]',
+    icon: 'Th.',
+  },
+  {
+    category: 'Christian Living',
+    title: 'What Should Christians Do When Government Feels Unstable?',
+    author: 'Peyton Garland',
+    href: '/trending',
+    style: 'from-[#2d4a3e] to-[#4a7a6a]',
+    icon: 'C.L.',
+  },
+  {
+    category: 'Current Events',
+    title: 'What Christians Should Understand About the Middle East Conflict',
+    author: 'Judy McEachran',
+    href: '/trending',
+    style: 'from-[#3a2448] to-[#6b4c8a]',
+    icon: 'C.E.',
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="JILBIT | Jesus Is Lord, Believe It"
+  description="JILBIT is a ministry movement centered on the message: Jesus Is Lord, Believe It."
+>
+  <section id="home-hero" class="relative overflow-hidden bg-[#000000] px-6 py-20 text-center md:py-24">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,146,42,0.14),transparent_55%)]" />
+    <div class="content-shell relative">
+      <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#5cd667]">Faith · Community · Mission</p>
+      <h1 class="mx-auto mt-5 max-w-4xl text-4xl leading-tight text-[#faf7f2] md:text-7xl">
+        Your faith working in the very places you were commanded to go
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-base text-[#faf7f2]/70 md:text-lg">
+        Confidence for the believer. Clarity for the seeker. Conviction for the world.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-3">
+        <a href="/outreach#fundraiser" class="rounded bg-[#5cd667] px-7 py-3 text-sm font-medium text-[#2e1a0e] transition hover:brightness-95">
+          Join the Jamaica Mission
+        </a>
+        <a href="/blog" class="rounded border border-[#faf7f2]/35 px-7 py-3 text-sm font-medium text-[#faf7f2] transition hover:border-[#c9922a] hover:bg-[#c9922a]/10">
+          Read the Blog
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[#2d4a3e] px-6 py-7 text-white">
+    <div class="content-shell grid gap-5 text-center sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Fundraiser Goal</p>
+        <p class="mt-1 text-xl font-bold md:text-2xl">${jamaicaFund.goalAmount.toLocaleString()}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Raised So Far</p>
+        <p class="mt-1 text-xl font-bold md:text-2xl">${jamaicaFund.raisedAmount.toLocaleString()}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Next Event</p>
+        <p class="mt-1 text-xl font-bold md:text-2xl">{jamaicaFund.nextEventLabel}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Location</p>
+        <p class="mt-1 text-xl font-bold md:text-2xl">{jamaicaFund.locationShort}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="fundraiser" class="bg-[#f0ebe0] px-6 py-16 md:py-20">
+    <div class="content-shell grid gap-10 lg:grid-cols-2">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#5cd667]">Upcoming Fundraiser</p>
+        <h2 class="mt-3 text-4xl leading-tight text-[#000000] md:text-5xl">{mayFundraiserEvent.title}</h2>
+        <p class="mt-4 text-sm text-[#7a6658]">
+          <span class="font-semibold text-[#ff2828]">{mayFundraiserEvent.dateLabel}</span> · {mayFundraiserEvent.timeLabel}<br />
+          {mayFundraiserEvent.location}
+        </p>
+        <p class="mt-5 max-w-xl text-[#7a6658]">
+          Come eat, fellowship, and be a part of something bigger. Every plate sold goes directly toward our Jamaica mission outreach - bringing hope, resources, and the gospel to communities in need.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={`tel:${mayFundraiserEvent.callPhoneHref}`} class="rounded bg-[#ff2828] px-6 py-3 text-sm font-medium text-white transition hover:brightness-95">
+            Call to Preorder: {mayFundraiserEvent.callPhoneDisplay}
+          </a>
+          <a href={mayFundraiserEvent.orderUrl} class="rounded border border-[#5c3d2e] px-6 py-3 text-sm font-medium text-[#5c3d2e] transition hover:bg-[#faf7f2]">
+            Order Online
+          </a>
+        </div>
+      </div>
+
+      <article class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6">
+        <div class="mb-3 flex items-end justify-between text-sm text-[#7a6658]">
+          <span>Jamaica Mission Fund</span>
+          <strong class="text-xl text-[#2e1a0e]">${jamaicaFund.raisedAmount.toLocaleString()} raised</strong>
+        </div>
+        <p class="mb-3 text-right text-sm text-[#7a6658]">of ${jamaicaFund.goalAmount.toLocaleString()} goal ({jamaicaFundProgress.progressPercent}%)</p>
+        <div class="h-2.5 overflow-hidden rounded-full bg-[#f0ebe0]">
+          <div class="h-full rounded-full bg-[#5cd667]" style={`width:${jamaicaFundProgress.progressPercent}%`} />
+        </div>
+        <div class="mt-5 grid gap-2 sm:grid-cols-2">
+          {mayFundraiserEvent.menu.map((item) => {
+            const [dish, price] = item.split(' - ');
+            return (
+              <div class="rounded-md border border-[rgba(92,61,46,0.15)] bg-[#faf7f2] px-3 py-2.5 text-sm">
+                <span class="block font-medium text-[#2e1a0e]">{dish}</span>
+                <span class="text-[#ff2828]">{price}</span>
+              </div>
+            );
+          })}
+        </div>
+        <p class="mt-4 text-center text-xs text-[#7a6658]">{mayFundraiserEvent.proceedsText}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-[#2e1a0e] px-6 py-14 text-center">
+    <div class="content-shell">
+      <blockquote class="mx-auto max-w-3xl text-2xl italic leading-relaxed text-[#ffffff] md:text-3xl">
+        "Look to the LORD and his strength; seek his face always. Remember the wonders he has done, his miracles, and the judgments he pronounced."
+      </blockquote>
+      <p class="mt-4 text-xs uppercase tracking-[0.14em]">
+        <span class="text-[#ffffff]">1 Chronicles 16:11-12</span>
+        <span class="text-[#ffffff]"> · </span>
+        <span class="text-[#ffffff]">Verse of the Day</span>
+      </p>
+    </div>
+  </section>
+
+  <section id="articles" class="content-shell px-6 py-16 md:py-20">
+    <div class="mb-8 flex items-end justify-between border-b border-[rgba(92,61,46,0.15)] pb-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.18em] text-[#c9922a]">From the Blog</p>
+        <h2 class="mt-2 text-4xl text-[#2e1a0e]">What We're Reading</h2>
+      </div>
+      <a href="/blog" class="text-sm text-[#c9922a] underline underline-offset-4">View all articles →</a>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <a href={articleFeatures[0].href} class="block overflow-hidden rounded-lg border border-[rgba(92,61,46,0.15)] bg-white transition hover:-translate-y-1 hover:shadow-lg">
+        <div class={`aspect-video bg-gradient-to-br ${articleFeatures[0].style} flex items-center justify-center`}>
+          <span class="text-6xl italic text-white/20">{articleFeatures[0].icon}</span>
+        </div>
+        <div class="p-6">
+          <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">{articleFeatures[0].category}</p>
+          <h3 class="mt-2 text-3xl leading-tight text-[#2e1a0e]">{articleFeatures[0].title}</h3>
+          <p class="mt-3 text-sm text-[#7a6658]">By {articleFeatures[0].author}</p>
+        </div>
+      </a>
+
+      <div class="space-y-6">
+        {articleFeatures.slice(1).map((article) => (
+          <a href={article.href} class="block overflow-hidden rounded-lg border border-[rgba(92,61,46,0.15)] bg-white transition hover:-translate-y-1 hover:shadow-lg">
+            <div class={`aspect-[16/7] bg-gradient-to-br ${article.style} flex items-center justify-center`}>
+              <span class="text-5xl italic text-white/20">{article.icon}</span>
+            </div>
+            <div class="p-5">
+              <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">{article.category}</p>
+              <h3 class="mt-2 text-xl leading-snug text-[#2e1a0e]">{article.title}</h3>
+              <p class="mt-2 text-xs text-[#7a6658]">By {article.author}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      <a href="/blog/why-jamaica/" class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md">
+        <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">Mission</p>
+        <h3 class="mt-2 text-xl text-[#2e1a0e]">Why Jamaica?</h3>
+      </a>
+      <a href="/trending" class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md">
+        <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">Theology</p>
+        <h3 class="mt-2 text-xl text-[#2e1a0e]">Did Jesus Die for Everyone?</h3>
+      </a>
+      <a href="/trending" class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md">
+        <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">Church</p>
+        <h3 class="mt-2 text-xl text-[#2e1a0e]">The Seven Last Words of Jesus from the Cross</h3>
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-[#f0ebe0] px-6 py-16">
+    <div class="content-shell grid gap-10 lg:grid-cols-[1fr_2fr]">
+      <div>
+        <p class="text-xs uppercase tracking-[0.18em] text-[#c9922a]">Trending Now</p>
+        <h2 class="mt-2 text-4xl leading-tight text-[#2e1a0e]">What the community is talking about</h2>
+        <p class="mt-4 text-[#7a6658]">Join thousands of believers wrestling with faith in the modern world.</p>
+      </div>
+      <ol class="space-y-1">
+        {[
+          'Should Christians Use AI to Pray?',
+          'Reclaim Your Peace and Replace Infinite Scrolling',
+          'How Is the Conflict with Iran Affecting Everyday American Life?',
+          'Why Are a Record Number of Americans Identifying as Political Moderates?',
+          'Should We Reconsider How We Share the Gospel with Gen Z?',
+        ].map((title, idx) => (
+          <li class="flex items-start gap-4 border-b border-[rgba(92,61,46,0.15)] py-3 last:border-b-0">
+            <span class="min-w-8 text-2xl text-[#f0d9a8]">{String(idx + 1).padStart(2, '0')}</span>
+            <a href="/trending" class="text-[#2e1a0e] transition hover:text-[#c9922a]">{title}</a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="bg-[#a84b2f] px-6 py-16 text-center">
+    <div class="content-shell">
+      <h2 class="text-4xl text-white md:text-5xl">Be part of the Jamaica mission</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-white/80">
+        Whether you give, go, or pray - there's a place for you in this work. Every gift brings us closer to serving those communities.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/donate" class="rounded bg-white px-7 py-3 text-sm font-medium text-[#a84b2f] transition hover:opacity-90">
+          Donate to the Mission
+        </a>
+        <a href="/outreach" class="rounded border border-white/50 px-7 py-3 text-sm font-medium text-white transition hover:border-white">
+          Learn About Our Outreach
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div
+    id="hero-scroll-banner"
+    class="pointer-events-none fixed inset-x-0 bottom-0 z-40 translate-y-full border-t border-[#5cd667]/30 bg-black px-6 py-3 text-center opacity-0 transition-all duration-300"
+    aria-hidden="true"
+  >
+    <p class="text-sm font-medium tracking-wide text-[#5cd667] md:text-base">Who is Jesus Christ? Why should I know?</p>
+  </div>
+
+  <script>
+    const hero = document.getElementById('home-hero');
+    const banner = document.getElementById('hero-scroll-banner');
+    const footer = document.getElementById('site-footer');
+
+    if (hero && banner) {
+      let heroOutOfView = false;
+      let footerVisible = false;
+
+      const updateBannerVisibility = () => {
+        const showBanner = heroOutOfView && !footerVisible;
+        banner.classList.toggle('opacity-0', !showBanner);
+        banner.classList.toggle('translate-y-full', !showBanner);
+        banner.classList.toggle('opacity-100', showBanner);
+        banner.classList.toggle('translate-y-0', showBanner);
+        banner.classList.toggle('pointer-events-none', !showBanner);
+        banner.setAttribute('aria-hidden', showBanner ? 'false' : 'true');
+      };
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          heroOutOfView = !entry.isIntersecting;
+          updateBannerVisibility();
+        },
+        { threshold: 0.1 }
+      );
+
+      observer.observe(hero);
+
+      if (footer) {
+        const footerObserver = new IntersectionObserver(
+          ([entry]) => {
+            footerVisible = entry.isIntersecting;
+            updateBannerVisibility();
+          },
+          { threshold: 0.1 }
+        );
+        footerObserver.observe(footer);
+      }
+    }
+  </script>
+</BaseLayout>

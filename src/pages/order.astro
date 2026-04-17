@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { mayFundraiserEvent } from '../data/events';
+
+const menuItems = [
+  { id: 'jerk-chicken', label: 'Jerk Chicken Dinner', price: 20 },
+  { id: 'brown-stew-chicken', label: 'Brown Stew Chicken Dinner', price: 20 },
+  { id: 'jerk-ribs', label: 'Jerk Ribs Dinner', price: 25 },
+  { id: 'fried-fish', label: 'Fried Fish Dinner', price: 25 },
+  { id: 'canned-soda', label: 'Canned Soda', price: 3 },
+  { id: 'pine-ginger', label: 'Pineapple-Ginger Refresher', price: 8 },
+];
+---
+
+<BaseLayout
+  title="Order Form | May Fundraiser BBQ"
+  description="Place your BBQ fundraiser preorder quickly with live totals, pickup preferences, and one-click order submission."
+>
+  <section class="content-shell py-20 md:py-24">
+    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#5cd667]">Fundraiser BBQ Orders</p>
+    <h1 class="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-zinc-900 md:text-6xl">May Fundraiser BBQ Order.</h1>
+    <p class="mt-4 max-w-3xl text-zinc-600">
+      {mayFundraiserEvent.dateLabel} • {mayFundraiserEvent.timeLabel} • {mayFundraiserEvent.location}
+    </p>
+  </section>
+
+  <section class="content-shell pb-24">
+    <div class="grid gap-8 lg:grid-cols-[1.25fr_0.75fr]">
+      <article class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm md:p-8">
+        <form id="order-form" class="space-y-8" aria-label="Fundraiser order form">
+          <fieldset class="space-y-4">
+            <legend class="text-lg font-semibold text-zinc-900">Contact Information</legend>
+            <div class="grid gap-4 md:grid-cols-2">
+              <label class="space-y-2 text-sm">
+                <span class="font-medium text-zinc-800">First Name</span>
+                <input required name="firstName" type="text" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
+              </label>
+              <label class="space-y-2 text-sm">
+                <span class="font-medium text-zinc-800">Last Name</span>
+                <input required name="lastName" type="text" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
+              </label>
+              <label class="space-y-2 text-sm md:col-span-2">
+                <span class="font-medium text-zinc-800">Phone Number</span>
+                <input required name="phone" type="tel" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
+              </label>
+              <label class="space-y-2 text-sm md:col-span-2">
+                <span class="font-medium text-zinc-800">Email (optional)</span>
+                <input name="email" type="email" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="space-y-3">
+            <legend class="text-lg font-semibold text-zinc-900">Pickup Time</legend>
+            <div class="grid gap-3 md:grid-cols-3">
+              {['At 2:00 PM', 'Between 2:00-3:00 PM', 'Between 3:00-5:00 PM'].map((slot) => (
+                <label class="flex items-center gap-3 rounded-xl border border-zinc-300 px-4 py-3 text-sm text-zinc-700">
+                  <input required type="radio" name="pickupTime" value={slot} />
+                  {slot}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset class="space-y-3">
+            <legend class="text-lg font-semibold text-zinc-900">Choose Meals & Drinks</legend>
+            <p class="text-sm text-zinc-600">*** 2 Sides are included with every meal.</p>
+            <div class="space-y-3">
+              {menuItems.map((item) => (
+                <label class="grid grid-cols-[1fr_auto_auto] items-center gap-3 rounded-xl border border-zinc-200 px-4 py-3">
+                  <span class="text-sm font-medium text-zinc-800">{item.label}</span>
+                  <span class="text-sm text-zinc-600">${item.price.toFixed(2)}</span>
+                  <input
+                    type="number"
+                    min="0"
+                    max="20"
+                    value="0"
+                    name={item.id}
+                    data-price={item.price}
+                    class="order-qty w-20 rounded-lg border border-zinc-300 px-3 py-2 text-right text-sm outline-none focus:border-zinc-800"
+                  />
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <label class="block space-y-2 text-sm">
+            <span class="font-medium text-zinc-800">Additional Notes</span>
+            <textarea name="notes" rows="3" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
+          </label>
+
+          <p id="form-error" class="hidden rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"></p>
+
+          <div class="flex flex-wrap gap-3">
+            <button type="submit" class="inline-flex rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-zinc-700">
+              Submit Order by Email
+            </button>
+            <a href={`tel:${mayFundraiserEvent.callPhoneHref}`} class="inline-flex rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-700 transition hover:border-zinc-900 hover:text-zinc-900">
+              Call to Order
+            </a>
+          </div>
+        </form>
+      </article>
+
+      <aside class="space-y-4">
+        <article class="sticky top-24 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm md:p-7">
+          <h2 class="text-xl font-semibold text-zinc-900">Order Summary</h2>
+          <p class="mt-2 text-sm text-zinc-600">Your total updates instantly as you set quantities.</p>
+          <ul id="summary-items" class="mt-4 space-y-2 text-sm text-zinc-700"></ul>
+          <div class="mt-4 border-t border-zinc-200 pt-4">
+            <p class="flex items-center justify-between text-sm text-zinc-700">
+              <span>Subtotal</span>
+              <span id="subtotal-value">$0.00</span>
+            </p>
+            <p class="mt-2 flex items-center justify-between text-sm font-semibold text-zinc-900">
+              <span>Total</span>
+              <span id="total-value">$0.00</span>
+            </p>
+          </div>
+          <p class="mt-4 text-xs text-zinc-500">
+            Payment is collected at pickup or by direct instruction from the fundraiser team.
+          </p>
+        </article>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('order-form');
+  const qtyInputs = Array.from(document.querySelectorAll('.order-qty'));
+  const summaryItems = document.getElementById('summary-items');
+  const subtotalValue = document.getElementById('subtotal-value');
+  const totalValue = document.getElementById('total-value');
+  const formError = document.getElementById('form-error');
+
+  function formatCurrency(value) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
+  }
+
+  function updateSummary() {
+    let subtotal = 0;
+    const lines = [];
+    qtyInputs.forEach((input) => {
+      const qty = Number(input.value || 0);
+      const price = Number(input.dataset.price || 0);
+      if (qty > 0) {
+        const rowTotal = qty * price;
+        subtotal += rowTotal;
+        const label = input.name.replaceAll('-', ' ');
+        lines.push(`${qty} x ${label} - ${formatCurrency(rowTotal)}`);
+      }
+    });
+    summaryItems.innerHTML = lines.length
+      ? lines.map((line) => `<li>${line}</li>`).join('')
+      : '<li class="text-zinc-500">No items selected yet.</li>';
+    subtotalValue.textContent = formatCurrency(subtotal);
+    totalValue.textContent = formatCurrency(subtotal);
+    return { subtotal, hasItems: lines.length > 0 };
+  }
+
+  qtyInputs.forEach((input) => input.addEventListener('input', updateSummary));
+  updateSummary();
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const { hasItems, subtotal } = updateSummary();
+    if (!hasItems) {
+      formError.textContent = 'Please add at least one item before submitting.';
+      formError.classList.remove('hidden');
+      return;
+    }
+    formError.classList.add('hidden');
+    const data = new FormData(form);
+    const fullName = `${data.get('firstName') || ''} ${data.get('lastName') || ''}`.trim();
+    const pickupTime = data.get('pickupTime') || 'Not selected';
+    const orderLines = qtyInputs
+      .map((input) => {
+        const qty = Number(input.value || 0);
+        if (!qty) return null;
+        const price = Number(input.dataset.price || 0);
+        return `- ${input.name.replaceAll('-', ' ')}: ${qty} (${formatCurrency(qty * price)})`;
+      })
+      .filter(Boolean)
+      .join('\n');
+
+    const subject = encodeURIComponent('JILBIT Fundraiser BBQ Order');
+    const bodyText = [
+      `Name: ${fullName}`,
+      `Phone: ${data.get('phone') || ''}`,
+      `Email: ${data.get('email') || ''}`,
+      `Pickup Time: ${pickupTime}`,
+      '',
+      'Order:',
+      orderLines,
+      '',
+      `Total: ${formatCurrency(subtotal)}`,
+      `Notes: ${data.get('notes') || 'None'}`,
+    ].join('\n');
+    const body = encodeURIComponent(bodyText);
+    window.location.href = `mailto:info@jilbit.com?subject=${subject}&body=${body}`;
+  });
+</script>
