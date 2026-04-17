@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import MissionCtaBand from '../components/MissionCtaBand.astro';
 import { mayFundraiserEvent } from '../data/events';
 
 const menuItems = [
@@ -16,114 +17,153 @@ const menuItems = [
   title="Order Form | May Fundraiser BBQ"
   description="Place your BBQ fundraiser preorder quickly with live totals, pickup preferences, and one-click order submission."
 >
-  <section class="content-shell py-20 md:py-24">
-    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#5cd667]">Fundraiser BBQ Orders</p>
-    <h1 class="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-zinc-900 md:text-6xl">May Fundraiser BBQ Order.</h1>
-    <p class="mt-4 max-w-3xl text-zinc-600">
-      {mayFundraiserEvent.dateLabel} • {mayFundraiserEvent.timeLabel} • {mayFundraiserEvent.location}
-    </p>
-  </section>
-
-  <section class="content-shell pb-24">
-    <div class="grid gap-8 lg:grid-cols-[1.25fr_0.75fr]">
-      <article class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm md:p-8">
-        <form id="order-form" class="space-y-8" aria-label="Fundraiser order form">
-          <fieldset class="space-y-4">
-            <legend class="text-lg font-semibold text-zinc-900">Contact Information</legend>
-            <div class="grid gap-4 md:grid-cols-2">
-              <label class="space-y-2 text-sm">
-                <span class="font-medium text-zinc-800">First Name</span>
-                <input required name="firstName" type="text" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
-              </label>
-              <label class="space-y-2 text-sm">
-                <span class="font-medium text-zinc-800">Last Name</span>
-                <input required name="lastName" type="text" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
-              </label>
-              <label class="space-y-2 text-sm md:col-span-2">
-                <span class="font-medium text-zinc-800">Phone Number</span>
-                <input required name="phone" type="tel" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
-              </label>
-              <label class="space-y-2 text-sm md:col-span-2">
-                <span class="font-medium text-zinc-800">Email (optional)</span>
-                <input name="email" type="email" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
-              </label>
-            </div>
-          </fieldset>
-
-          <fieldset class="space-y-3">
-            <legend class="text-lg font-semibold text-zinc-900">Pickup Time</legend>
-            <div class="grid gap-3 md:grid-cols-3">
-              {['At 2:00 PM', 'Between 2:00-3:00 PM', 'Between 3:00-5:00 PM'].map((slot) => (
-                <label class="flex items-center gap-3 rounded-xl border border-zinc-300 px-4 py-3 text-sm text-zinc-700">
-                  <input required type="radio" name="pickupTime" value={slot} />
-                  {slot}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          <fieldset class="space-y-3">
-            <legend class="text-lg font-semibold text-zinc-900">Choose Meals & Drinks</legend>
-            <p class="text-sm text-zinc-600">*** 2 Sides are included with every meal.</p>
-            <div class="space-y-3">
-              {menuItems.map((item) => (
-                <label class="grid grid-cols-[1fr_auto_auto] items-center gap-3 rounded-xl border border-zinc-200 px-4 py-3">
-                  <span class="text-sm font-medium text-zinc-800">{item.label}</span>
-                  <span class="text-sm text-zinc-600">${item.price.toFixed(2)}</span>
-                  <input
-                    type="number"
-                    min="0"
-                    max="20"
-                    value="0"
-                    name={item.id}
-                    data-price={item.price}
-                    class="order-qty w-20 rounded-lg border border-zinc-300 px-3 py-2 text-right text-sm outline-none focus:border-zinc-800"
-                  />
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          <label class="block space-y-2 text-sm">
-            <span class="font-medium text-zinc-800">Additional Notes</span>
-            <textarea name="notes" rows="3" class="w-full rounded-xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-800" />
-          </label>
-
-          <p id="form-error" class="hidden rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"></p>
-
-          <div class="flex flex-wrap gap-3">
-            <button type="submit" class="inline-flex rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-zinc-700">
-              Submit Order by Email
-            </button>
-            <a href={`tel:${mayFundraiserEvent.callPhoneHref}`} class="inline-flex rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-700 transition hover:border-zinc-900 hover:text-zinc-900">
-              Call to Order
-            </a>
-          </div>
-        </form>
-      </article>
-
-      <aside class="space-y-4">
-        <article class="sticky top-24 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm md:p-7">
-          <h2 class="text-xl font-semibold text-zinc-900">Order Summary</h2>
-          <p class="mt-2 text-sm text-zinc-600">Your total updates instantly as you set quantities.</p>
-          <ul id="summary-items" class="mt-4 space-y-2 text-sm text-zinc-700"></ul>
-          <div class="mt-4 border-t border-zinc-200 pt-4">
-            <p class="flex items-center justify-between text-sm text-zinc-700">
-              <span>Subtotal</span>
-              <span id="subtotal-value">$0.00</span>
-            </p>
-            <p class="mt-2 flex items-center justify-between text-sm font-semibold text-zinc-900">
-              <span>Total</span>
-              <span id="total-value">$0.00</span>
-            </p>
-          </div>
-          <p class="mt-4 text-xs text-zinc-500">
-            Payment is collected at pickup or by direct instruction from the fundraiser team.
-          </p>
-        </article>
-      </aside>
+  <section class="relative overflow-hidden bg-[#000000] px-6 py-16 text-left md:py-24">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,146,42,0.14),transparent_55%)]" />
+    <div class="content-shell relative">
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#5cd667]">Fundraiser BBQ orders</p>
+      <h1 class="mt-4 max-w-4xl text-4xl leading-tight text-[#faf7f2] md:text-5xl lg:text-6xl">May Fundraiser BBQ Order.</h1>
+      <p class="mt-6 max-w-3xl text-base text-[#faf7f2]/70 md:text-lg">
+        {mayFundraiserEvent.dateLabel} · {mayFundraiserEvent.timeLabel}
+        <br class="sm:hidden" />
+        <span class="hidden sm:inline"> · </span>
+        {mayFundraiserEvent.location}
+      </p>
     </div>
   </section>
+
+  <section class="bg-[#f0ebe0] px-6 py-16 md:py-20">
+    <div class="content-shell">
+      <div class="grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+        <article class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6 shadow-sm md:p-8">
+          <form id="order-form" class="space-y-10" aria-label="Fundraiser order form">
+            <fieldset class="space-y-4">
+              <legend class="text-lg font-medium text-[#2e1a0e]">Contact information</legend>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <label class="space-y-2 text-sm">
+                  <span class="font-medium text-[#2e1a0e]">First name</span>
+                  <input
+                    required
+                    name="firstName"
+                    type="text"
+                    class="w-full rounded-lg border border-[rgba(92,61,46,0.2)] bg-[#faf7f2]/50 px-4 py-3.5 text-[#2e1a0e] outline-none transition focus:border-[#5c3d2e] focus:ring-1 focus:ring-[#5c3d2e]/20"
+                  />
+                </label>
+                <label class="space-y-2 text-sm">
+                  <span class="font-medium text-[#2e1a0e]">Last name</span>
+                  <input
+                    required
+                    name="lastName"
+                    type="text"
+                    class="w-full rounded-lg border border-[rgba(92,61,46,0.2)] bg-[#faf7f2]/50 px-4 py-3.5 text-[#2e1a0e] outline-none transition focus:border-[#5c3d2e] focus:ring-1 focus:ring-[#5c3d2e]/20"
+                  />
+                </label>
+                <label class="space-y-2 text-sm sm:col-span-2">
+                  <span class="font-medium text-[#2e1a0e]">Phone number</span>
+                  <input
+                    required
+                    name="phone"
+                    type="tel"
+                    class="w-full rounded-lg border border-[rgba(92,61,46,0.2)] bg-[#faf7f2]/50 px-4 py-3.5 text-[#2e1a0e] outline-none transition focus:border-[#5c3d2e] focus:ring-1 focus:ring-[#5c3d2e]/20"
+                  />
+                </label>
+                <label class="space-y-2 text-sm sm:col-span-2">
+                  <span class="font-medium text-[#2e1a0e]">Email (optional)</span>
+                  <input
+                    name="email"
+                    type="email"
+                    class="w-full rounded-lg border border-[rgba(92,61,46,0.2)] bg-[#faf7f2]/50 px-4 py-3.5 text-[#2e1a0e] outline-none transition focus:border-[#5c3d2e] focus:ring-1 focus:ring-[#5c3d2e]/20"
+                  />
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="space-y-4">
+              <legend class="text-lg font-medium text-[#2e1a0e]">Pickup time</legend>
+              <div class="grid gap-3 sm:grid-cols-3">
+                {['At 2:00 PM', 'Between 2:00-3:00 PM', 'Between 3:00-5:00 PM'].map((slot) => (
+                  <label class="flex cursor-pointer items-center gap-3 rounded-lg border border-[rgba(92,61,46,0.2)] bg-[#faf7f2]/30 px-4 py-3.5 text-sm text-[#7a6658] transition hover:border-[#5c3d2e]/40">
+                    <input required type="radio" name="pickupTime" value={slot} class="text-[#5cd667] focus:ring-[#5cd667]" />
+                    {slot}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <fieldset class="space-y-4">
+              <legend class="text-lg font-medium text-[#2e1a0e]">Meals & drinks</legend>
+              <p class="text-sm text-[#7a6658]">*** 2 Sides are included with every meal.</p>
+              <div class="space-y-3">
+                {menuItems.map((item) => (
+                  <label class="grid grid-cols-[1fr_auto_auto] items-center gap-3 rounded-lg border border-[rgba(92,61,46,0.15)] bg-[#faf7f2] px-4 py-3.5">
+                    <span class="text-sm font-medium text-[#2e1a0e]">{item.label}</span>
+                    <span class="text-sm text-[#ff2828]">${item.price.toFixed(2)}</span>
+                    <input
+                      type="number"
+                      min="0"
+                      max="20"
+                      value="0"
+                      name={item.id}
+                      data-price={item.price}
+                      class="order-qty w-[4.5rem] rounded-md border border-[rgba(92,61,46,0.2)] bg-white px-2 py-2 text-right text-sm text-[#2e1a0e] outline-none focus:border-[#5c3d2e]"
+                    />
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <label class="block space-y-2 text-sm">
+              <span class="font-medium text-[#2e1a0e]">Additional notes</span>
+              <textarea
+                name="notes"
+                rows="3"
+                class="w-full rounded-lg border border-[rgba(92,61,46,0.2)] bg-[#faf7f2]/50 px-4 py-3.5 text-[#2e1a0e] outline-none focus:border-[#5c3d2e]"
+              />
+            </label>
+
+            <p id="form-error" class="hidden rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"></p>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <button
+                type="submit"
+                class="inline-flex rounded bg-[#5cd667] px-7 py-3.5 text-sm font-medium text-[#2e1a0e] transition hover:brightness-95"
+              >
+                Submit order by email
+              </button>
+              <a
+                href={`tel:${mayFundraiserEvent.callPhoneHref}`}
+                class="inline-flex rounded border border-[#5c3d2e] px-7 py-3.5 text-sm font-medium text-[#5c3d2e] transition hover:bg-[#faf7f2]"
+              >
+                Call to order
+              </a>
+            </div>
+          </form>
+        </article>
+
+        <aside>
+          <article class="sticky top-28 rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6 shadow-sm md:p-8">
+            <h2 class="text-xl font-medium text-[#2e1a0e]">Order summary</h2>
+            <p class="mt-2 text-sm text-[#7a6658]">Totals update as you set quantities.</p>
+            <ul id="summary-items" class="mt-6 space-y-2 text-sm text-[#7a6658]"></ul>
+            <div class="mt-6 border-t border-[rgba(92,61,46,0.12)] pt-6">
+              <p class="flex items-center justify-between text-sm text-[#7a6658]">
+                <span>Subtotal</span>
+                <span id="subtotal-value">$0.00</span>
+              </p>
+              <p class="mt-3 flex items-center justify-between text-base font-semibold text-[#2e1a0e]">
+                <span>Total</span>
+                <span id="total-value">$0.00</span>
+              </p>
+            </div>
+            <p class="mt-6 text-xs leading-relaxed text-[#7a6658]">
+              Payment is collected at pickup or by direct instruction from the fundraiser team.
+            </p>
+          </article>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <MissionCtaBand />
 </BaseLayout>
 
 <script>
@@ -148,12 +188,12 @@ const menuItems = [
         const rowTotal = qty * price;
         subtotal += rowTotal;
         const label = input.name.replaceAll('-', ' ');
-        lines.push(`${qty} x ${label} - ${formatCurrency(rowTotal)}`);
+        lines.push(`${qty} × ${label} — ${formatCurrency(rowTotal)}`);
       }
     });
     summaryItems.innerHTML = lines.length
       ? lines.map((line) => `<li>${line}</li>`).join('')
-      : '<li class="text-zinc-500">No items selected yet.</li>';
+      : '<li class="text-[#7a6658]/80">No items yet.</li>';
     subtotalValue.textContent = formatCurrency(subtotal);
     totalValue.textContent = formatCurrency(subtotal);
     return { subtotal, hasItems: lines.length > 0 };

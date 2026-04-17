@@ -1,26 +1,71 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import MissionCtaBand from '../components/MissionCtaBand.astro';
+
+const topics = [
+  'Should Christians Use AI to Pray?',
+  'Reclaim Your Peace and Replace Infinite Scrolling',
+  'How Is the Conflict with Iran Affecting Everyday American Life?',
+  'Why Are a Record Number of Americans Identifying as Political Moderates?',
+  'Should We Reconsider How We Share the Gospel with Gen Z?',
+];
 ---
 
 <BaseLayout title="Trending | JILBIT" description="Trending Christian topics and faith conversations curated by JILBIT.">
-  <section class="content-shell py-20 md:py-24">
-    <h1 class="text-4xl tracking-tight text-zinc-900 md:text-6xl">Here's What's Trending Today...</h1>
+  <section class="relative overflow-hidden bg-[#000000] px-6 py-16 text-left md:py-24">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,146,42,0.14),transparent_55%)]" />
+    <div class="content-shell relative">
+      <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#5cd667]">Trending now</p>
+      <h1 class="mt-4 max-w-4xl text-4xl leading-tight text-[#faf7f2] md:text-6xl">Here's What's Trending Today...</h1>
+      <p class="mt-6 max-w-2xl text-base text-[#faf7f2]/70 md:text-lg">
+        Questions and conversations believers are engaging with right now — curated in a calm, readable layout.
+      </p>
+    </div>
   </section>
 
-  <section class="content-shell pb-20">
-    <ol class="space-y-4 rounded-3xl border border-zinc-200 bg-white p-8">
-      {[
-        'Should Christians Use AI to Pray?',
-        'Reclaim Your Peace and Replace Infinite Scrolling',
-        'How Is the Conflict with Iran Affecting Everyday American Life?',
-        'Why Are a Record Number of Americans Identifying as Political Moderates?',
-        'Should We Reconsider How We Share the Gospel with Gen Z?',
-      ].map((title, idx) => (
-        <li class="flex gap-3 border-b border-zinc-200 pb-3 last:border-none">
-          <span class="text-sm font-semibold text-zinc-500">{String(idx + 1).padStart(2, '0')}</span>
-          <span class="text-zinc-800">{title}</span>
-        </li>
-      ))}
-    </ol>
+  <section class="bg-[#f0ebe0] px-6 py-16 md:py-20">
+    <div class="content-shell">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6">
+          <p class="text-xs uppercase tracking-[0.14em] text-[#5cd667]">Theology</p>
+          <h2 class="mt-2 text-lg leading-snug text-[#2e1a0e]">Scripture and doctrine</h2>
+        </article>
+        <article class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6">
+          <p class="text-xs uppercase tracking-[0.14em] text-[#5cd667]">Culture</p>
+          <h2 class="mt-2 text-lg leading-snug text-[#2e1a0e]">Faith and current events</h2>
+        </article>
+        <article class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6 sm:col-span-2 lg:col-span-1">
+          <p class="text-xs uppercase tracking-[0.14em] text-[#5cd667]">Mission</p>
+          <h2 class="mt-2 text-lg leading-snug text-[#2e1a0e]">Living out the gospel</h2>
+        </article>
+      </div>
+
+      <div class="mt-12 grid gap-10 lg:grid-cols-[1fr_2fr]">
+        <div>
+          <p class="text-xs uppercase tracking-[0.18em] text-[#c9922a]">This week</p>
+          <h2 class="mt-2 text-3xl leading-tight text-[#2e1a0e] md:text-4xl">What people are reading</h2>
+          <p class="mt-4 text-[#7a6658]">Tap any topic to explore more on the blog and outreach pages.</p>
+        </div>
+        <ol class="space-y-1">
+          {topics.map((title, idx) => (
+            <li class="flex items-start gap-4 border-b border-[rgba(92,61,46,0.15)] py-4 last:border-b-0">
+              <span class="min-w-8 text-2xl tabular-nums text-[#f0d9a8]">{String(idx + 1).padStart(2, '0')}</span>
+              <a href="/blog" class="text-lg leading-snug text-[#2e1a0e] transition hover:text-[#c9922a]">{title}</a>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="mt-12 flex flex-wrap gap-3">
+        <a href="/blog" class="rounded bg-[#5cd667] px-7 py-3 text-sm font-medium text-[#2e1a0e] transition hover:brightness-95">
+          Read the blog
+        </a>
+        <a href="/outreach#fundraiser" class="rounded border border-[#5c3d2e] px-7 py-3 text-sm font-medium text-[#5c3d2e] transition hover:bg-[#faf7f2]">
+          Support the fundraiser
+        </a>
+      </div>
+    </div>
   </section>
+
+  <MissionCtaBand />
 </BaseLayout>

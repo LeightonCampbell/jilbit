@@ -1,0 +1,26 @@
+---
+interface Props {
+  heading?: string;
+  body?: string;
+}
+
+const {
+  heading = "Be part of the Jamaica mission",
+  body = "Whether you give, go, or pray — there's a place for you in this work. Every gift brings us closer to serving those communities.",
+} = Astro.props;
+---
+
+<section class="bg-[#a84b2f] px-6 py-14 text-center md:py-16">
+  <div class="content-shell">
+    <h2 class="text-3xl text-white md:text-4xl">{heading}</h2>
+    <p class="mx-auto mt-4 max-w-2xl text-sm text-white/85 md:text-base">{body}</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/donate" class="rounded bg-white px-7 py-3 text-sm font-medium text-[#a84b2f] transition hover:opacity-90">
+        Donate to the Mission
+      </a>
+      <a href="/outreach" class="rounded border border-white/50 px-7 py-3 text-sm font-medium text-white transition hover:border-white">
+        Learn About Our Outreach
+      </a>
+    </div>
+  </div>
+</section>

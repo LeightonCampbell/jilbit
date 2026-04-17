@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import MissionCtaBand from '../components/MissionCtaBand.astro';
 import { jamaicaFund, jamaicaFundProgress } from '../data/fundraising';
 import { mayFundraiserEvent } from '../data/events';
 
@@ -8,51 +9,104 @@ const { remainingAmount, progressPercent } = jamaicaFundProgress;
 ---
 
 <BaseLayout title="Summer Jamaica Outreach 2026 | JILBIT" description="Support and join JILBIT's Summer Jamaica Outreach in July 2026.">
-  <section class="content-shell py-32">
-    <p class="text-sm uppercase tracking-[0.2em] text-zinc-500">July 2026</p>
-    <h1 class="mt-4 max-w-3xl text-5xl tracking-tight text-zinc-900 md:text-7xl">Summer Jamaica Outreach</h1>
-    <p class="mt-6 max-w-2xl text-lg text-zinc-600">
-      This mission focuses on kids in the under served community of Linstead, St. Catherine. When you give, you provide meals,
-      clothing, essential school accessories and funds, as well as a careful access to truth that changes their lives.
-    </p>
-    <div class="mt-8 w-full max-w-2xl rounded-2xl border border-zinc-200 bg-white/90 p-5">
-      <div class="flex items-center justify-between text-sm text-zinc-700">
-        <span class="font-semibold tracking-wide text-zinc-900">Fundraising Goal: ${goalAmount.toLocaleString()}</span>
-        <span>{progressPercent}% funded</span>
-      </div>
-      <div class="mt-3 h-2.5 overflow-hidden rounded-full bg-zinc-200">
-        <div class="h-full rounded-full bg-[#5cd667]" style={`width: ${progressPercent}%`} />
-      </div>
-      <p class="mt-3 text-sm text-zinc-600">
-        <span class="font-medium text-zinc-900">${raisedAmount.toLocaleString()}</span> raised •
-        <span class="font-medium text-zinc-900"> ${remainingAmount.toLocaleString()}</span> to go
+  <section class="relative overflow-hidden bg-[#000000] px-6 py-16 text-left md:py-24">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,146,42,0.14),transparent_55%)]" />
+    <div class="content-shell relative">
+      <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#5cd667]">July 2026</p>
+      <h1 class="mt-4 max-w-4xl text-4xl leading-tight text-[#faf7f2] md:text-6xl">Summer Jamaica Outreach</h1>
+      <p class="mt-6 max-w-2xl text-base text-[#faf7f2]/70 md:text-lg">
+        This mission focuses on kids in the under served community of Linstead, St. Catherine. When you give, you provide meals,
+        clothing, essential school accessories and funds, as well as a careful access to truth that changes their lives.
       </p>
-    </div>
-    <a href="/donate" class="mt-10 inline-flex rounded-full bg-zinc-900 px-7 py-3 text-sm font-semibold text-white transition hover:bg-zinc-700">
-      Donate to the Mission
-    </a>
-  </section>
-
-  <section class="content-shell py-24">
-    <h2 class="text-3xl tracking-tight text-zinc-900">Fundraising Timeline</h2>
-    <ol class="mt-8 space-y-5 border-l border-zinc-300 pl-6">
-      <li><p class="text-sm uppercase tracking-[0.15em] text-zinc-500">January 2026</p><p class="mt-1 text-zinc-700">Launch campaign and sponsorship commitments.</p></li>
-      <li><p class="text-sm uppercase tracking-[0.15em] text-zinc-500">March 2026</p><p class="mt-1 text-zinc-700">Community worship night and outreach fundraiser.</p></li>
-      <li><p class="text-sm uppercase tracking-[0.15em] text-zinc-500">May 2026</p><p class="mt-1 text-zinc-700">Mission banquet and final giving push.</p></li>
-      <li><p class="text-sm uppercase tracking-[0.15em] text-zinc-500">July 2026</p><p class="mt-1 text-zinc-700">Team departs for summer outreach in Jamaica.</p></li>
-    </ol>
-  </section>
-
-  <section class="content-shell pb-24">
-    <article class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm md:p-8">
-      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-[#5cd667]">Upcoming Fundraiser</p>
-      <h2 class="mt-2 text-3xl tracking-tight text-zinc-900">{mayFundraiserEvent.title}</h2>
-      <p class="mt-2 text-sm text-zinc-600">{mayFundraiserEvent.dateLabel} • {mayFundraiserEvent.timeLabel}</p>
-      <p class="text-sm text-zinc-600">{mayFundraiserEvent.location}</p>
-      <div class="mt-5 flex flex-wrap gap-3">
-        <a href={`tel:${mayFundraiserEvent.callPhoneHref}`} class="rounded bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white">Call to Preorder</a>
-        <a href={mayFundraiserEvent.orderUrl} class="rounded border border-zinc-300 px-5 py-2.5 text-sm font-semibold text-zinc-700">Order Online</a>
+      <div class="mt-10 w-full max-w-2xl rounded-lg border border-white/15 bg-white/95 p-6">
+        <div class="flex flex-wrap items-center justify-between gap-2 text-sm text-[#7a6658]">
+          <span class="font-semibold text-[#2e1a0e]">Goal: ${goalAmount.toLocaleString()}</span>
+          <span>{progressPercent}% funded</span>
+        </div>
+        <div class="mt-4 h-2.5 overflow-hidden rounded-full bg-[#f0ebe0]">
+          <div class="h-full rounded-full bg-[#5cd667]" style={`width: ${progressPercent}%`} />
+        </div>
+        <p class="mt-3 text-sm text-[#7a6658]">
+          <span class="font-medium text-[#2e1a0e]">${raisedAmount.toLocaleString()}</span> raised ·
+          <span class="font-medium text-[#2e1a0e]">${remainingAmount.toLocaleString()}</span> to go
+        </p>
       </div>
-    </article>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/donate" class="rounded bg-[#5cd667] px-7 py-3 text-sm font-medium text-[#2e1a0e] transition hover:brightness-95">
+          Donate to the Mission
+        </a>
+        <a href="/blog/why-jamaica/" class="rounded border border-[#faf7f2]/35 px-7 py-3 text-sm font-medium text-[#faf7f2] transition hover:border-[#c9922a] hover:bg-[#c9922a]/10">
+          Why Jamaica?
+        </a>
+      </div>
+    </div>
   </section>
+
+  <section class="bg-[#2d4a3e] px-6 py-8 text-white md:py-10">
+    <div class="content-shell grid gap-6 text-center sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Goal</p>
+        <p class="mt-1 text-lg font-bold md:text-xl">${goalAmount.toLocaleString()}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Raised</p>
+        <p class="mt-1 text-lg font-bold md:text-xl">${raisedAmount.toLocaleString()}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Next Event</p>
+        <p class="mt-1 text-lg font-bold md:text-xl">{jamaicaFund.nextEventLabel}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Location</p>
+        <p class="mt-1 text-lg font-bold md:text-xl">{jamaicaFund.locationShort}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[#f0ebe0] px-6 py-16 md:py-20">
+    <div class="content-shell">
+      <h2 class="text-3xl leading-tight text-[#2e1a0e] md:text-4xl">Fundraising timeline</h2>
+      <ol class="mt-10 max-w-3xl space-y-8 border-l border-[rgba(92,61,46,0.25)] pl-6 md:pl-8">
+        <li>
+          <p class="text-xs font-medium uppercase tracking-[0.14em] text-[#c9922a]">January 2026</p>
+          <p class="mt-2 text-[#7a6658]">Launch campaign and sponsorship commitments.</p>
+        </li>
+        <li>
+          <p class="text-xs font-medium uppercase tracking-[0.14em] text-[#c9922a]">March 2026</p>
+          <p class="mt-2 text-[#7a6658]">Community worship night and outreach fundraiser.</p>
+        </li>
+        <li>
+          <p class="text-xs font-medium uppercase tracking-[0.14em] text-[#c9922a]">May 2026</p>
+          <p class="mt-2 text-[#7a6658]">Mission banquet and final giving push.</p>
+        </li>
+        <li>
+          <p class="text-xs font-medium uppercase tracking-[0.14em] text-[#c9922a]">July 2026</p>
+          <p class="mt-2 text-[#7a6658]">Team departs for summer outreach in Jamaica.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="fundraiser" class="bg-[#f0ebe0] px-6 pb-16 md:pb-20">
+    <div class="content-shell">
+      <article class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6 shadow-sm md:p-8">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#5cd667]">Upcoming fundraiser</p>
+        <h2 class="mt-3 text-3xl leading-tight text-[#000000] md:text-4xl">{mayFundraiserEvent.title}</h2>
+        <p class="mt-4 text-sm text-[#7a6658]">
+          <span class="font-semibold text-[#ff2828]">{mayFundraiserEvent.dateLabel}</span> · {mayFundraiserEvent.timeLabel}
+        </p>
+        <p class="text-sm text-[#7a6658]">{mayFundraiserEvent.location}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={`tel:${mayFundraiserEvent.callPhoneHref}`} class="rounded bg-[#ff2828] px-6 py-3 text-sm font-medium text-white transition hover:brightness-95">
+            Call to Preorder: {mayFundraiserEvent.callPhoneDisplay}
+          </a>
+          <a href={mayFundraiserEvent.orderUrl} class="rounded border border-[#5c3d2e] px-6 py-3 text-sm font-medium text-[#5c3d2e] transition hover:bg-[#faf7f2]">
+            Order Online
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <MissionCtaBand />
 </BaseLayout>
