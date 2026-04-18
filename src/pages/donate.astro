@@ -94,11 +94,20 @@ const usStates = [
 
       <div class="mt-10 lg:grid lg:grid-cols-[1fr_320px] lg:gap-10 lg:items-start">
         <article class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6 shadow-sm md:p-8 lg:p-10">
-          <p class="text-xs font-medium uppercase tracking-[0.12em] text-[#7a6658]">Required fields are marked *</p>
+          <p class="text-xs font-medium uppercase tracking-[0.12em] text-[#7a6658]">
+            Required fields are marked <span class="text-[#ff2828]">*</span>
+          </p>
 
           <form id="donation-form" class="mt-8 space-y-10" novalidate>
+            <div class="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[#7a6658]">
+              <span id="step-indicator-1" class="rounded-full bg-[#2d4a3e] px-3 py-1 text-white">1. Gift</span>
+              <span id="step-indicator-2" class="rounded-full border border-[rgba(92,61,46,0.2)] px-3 py-1">2. Billing</span>
+              <span id="step-indicator-3" class="rounded-full border border-[rgba(92,61,46,0.2)] px-3 py-1">3. Payment</span>
+            </div>
+
+            <div id="step-1" class="space-y-10">
             <fieldset class="space-y-4">
-              <legend class="text-base font-medium text-[#2e1a0e]">Select a gift amount</legend>
+              <legend class="text-base font-medium text-[#2e1a0e]">Select a gift amount <span class="text-[#ff2828]">*</span></legend>
               <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {
                   [250, 100, 50].map((amt) => (
@@ -134,7 +143,7 @@ const usStates = [
             </fieldset>
 
             <fieldset class="space-y-4">
-              <legend class="text-base font-medium text-[#2e1a0e]">Gift type</legend>
+              <legend class="text-base font-medium text-[#2e1a0e]">Gift type <span class="text-[#ff2828]">*</span></legend>
               <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <label class="flex cursor-pointer items-center gap-3 rounded-lg border border-[rgba(92,61,46,0.15)] px-4 py-3 text-sm text-[#7a6658] has-[:checked]:border-[#5cd667] has-[:checked]:bg-[#5cd667]/10">
                   <input type="radio" name="giftType" value="one-time" checked class="text-[#5cd667] focus:ring-[#5cd667]" />
@@ -206,9 +215,21 @@ const usStates = [
               />
             </div>
 
+            <div class="flex w-full justify-center gap-3 border-t border-[rgba(92,61,46,0.1)] pt-8">
+              <button
+                type="button"
+                id="next-step-1"
+                class="w-full max-w-md rounded bg-[#5cd667] px-8 py-3.5 text-center text-sm font-medium text-[#2e1a0e] transition hover:brightness-95"
+              >
+                Continue to Billing
+              </button>
+            </div>
+            </div>
+
+            <div id="step-2" class="hidden space-y-8">
             <div>
               <h2 class="text-lg font-medium text-[#2e1a0e]">Billing information</h2>
-              <p class="mt-1 text-sm text-[#7a6658]">We use this to send a receipt and say thank you. Online payment processing may be coordinated by our team after we receive your pledge.</p>
+              <p class="mt-1 text-sm text-[#7a6658]">We use this for your secure receipt and payment verification.</p>
               <div class="mt-6 space-y-4">
                 <label class="flex cursor-pointer items-center gap-3 text-sm text-[#7a6658]">
                   <input type="checkbox" name="onBehalfOrg" id="on-behalf-org" class="rounded border-[rgba(92,61,46,0.3)] text-[#5cd667]" />
@@ -216,22 +237,22 @@ const usStates = [
                 </label>
                 <div id="org-name-wrap" class="hidden">
                   <label class="text-sm font-medium text-[#2e1a0e]">
-                    Organization name *
+                    Organization name <span class="text-[#ff2828]">*</span>
                     <input type="text" name="organizationName" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
                   </label>
                 </div>
                 <div class="grid gap-4 sm:grid-cols-2">
                   <label class="text-sm">
-                    <span class="font-medium text-[#2e1a0e]">First name *</span>
+                    <span class="font-medium text-[#2e1a0e]">First name <span class="text-[#ff2828]">*</span></span>
                     <input required name="firstName" type="text" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3 text-[#2e1a0e]" />
                   </label>
                   <label class="text-sm">
-                    <span class="font-medium text-[#2e1a0e]">Last name *</span>
+                    <span class="font-medium text-[#2e1a0e]">Last name <span class="text-[#ff2828]">*</span></span>
                     <input required name="lastName" type="text" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3 text-[#2e1a0e]" />
                   </label>
                 </div>
                 <label class="block text-sm">
-                  <span class="font-medium text-[#2e1a0e]">Street address *</span>
+                  <span class="font-medium text-[#2e1a0e]">Street address <span class="text-[#ff2828]">*</span></span>
                   <input required name="street1" type="text" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
                 </label>
                 <label class="block text-sm">
@@ -240,11 +261,11 @@ const usStates = [
                 </label>
                 <div class="grid gap-4 sm:grid-cols-2">
                   <label class="text-sm">
-                    <span class="font-medium text-[#2e1a0e]">City *</span>
+                    <span class="font-medium text-[#2e1a0e]">City <span class="text-[#ff2828]">*</span></span>
                     <input required name="city" type="text" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
                   </label>
                   <label class="text-sm">
-                    <span class="font-medium text-[#2e1a0e]">State *</span>
+                    <span class="font-medium text-[#2e1a0e]">State <span class="text-[#ff2828]">*</span></span>
                     <select required name="state" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] bg-white px-4 py-3 text-[#2e1a0e]">
                       {usStates.map(([val, label]) => (
                         <option value={val}>{label}</option>
@@ -254,11 +275,11 @@ const usStates = [
                 </div>
                 <div class="grid gap-4 sm:grid-cols-2">
                   <label class="text-sm">
-                    <span class="font-medium text-[#2e1a0e]">ZIP / Postal code *</span>
+                    <span class="font-medium text-[#2e1a0e]">ZIP / Postal code <span class="text-[#ff2828]">*</span></span>
                     <input required name="zip" type="text" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
                   </label>
                   <label class="text-sm">
-                    <span class="font-medium text-[#2e1a0e]">Country *</span>
+                    <span class="font-medium text-[#2e1a0e]">Country <span class="text-[#ff2828]">*</span></span>
                     <select name="country" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] bg-white px-4 py-3 text-[#2e1a0e]">
                       <option value="US">United States</option>
                       <option value="CA">Canada</option>
@@ -269,11 +290,11 @@ const usStates = [
                 </div>
                 <div class="grid gap-4 sm:grid-cols-2">
                   <label class="text-sm">
-                    <span class="font-medium text-[#2e1a0e]">Phone *</span>
+                    <span class="font-medium text-[#2e1a0e]">Phone <span class="text-[#ff2828]">*</span></span>
                     <input required name="phone" type="tel" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
                   </label>
                   <label class="text-sm">
-                    <span class="font-medium text-[#2e1a0e]">Email *</span>
+                    <span class="font-medium text-[#2e1a0e]">Email <span class="text-[#ff2828]">*</span></span>
                     <input required name="email" type="email" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
                   </label>
                 </div>
@@ -282,22 +303,63 @@ const usStates = [
                 </p>
               </div>
             </div>
+            <div class="flex gap-3 border-t border-[rgba(92,61,46,0.1)] pt-8">
+              <button type="button" id="back-step-2" class="flex-1 rounded border border-[#5c3d2e] px-8 py-3.5 text-center text-sm font-medium text-[#5c3d2e] transition hover:bg-[#faf7f2]">
+                Back
+              </button>
+              <button
+                type="button"
+                id="next-step-2"
+                class="flex-1 rounded bg-[#5cd667] px-8 py-3.5 text-center text-sm font-medium text-[#2e1a0e] transition hover:brightness-95"
+              >
+                Continue to Payment
+              </button>
+            </div>
+            </div>
+
+            <div id="step-3" class="hidden space-y-8">
+              <div>
+                <h2 class="text-lg font-medium text-[#2e1a0e]">Payment gateway</h2>
+                <p class="mt-1 text-sm text-[#7a6658]">Your donation is submitted through a secure encrypted payment gateway.</p>
+                <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                  <label class="text-sm sm:col-span-2">
+                    <span class="font-medium text-[#2e1a0e]">Name on card <span class="text-[#ff2828]">*</span></span>
+                    <input data-step-required="3" name="cardName" type="text" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
+                  </label>
+                  <label class="text-sm sm:col-span-2">
+                    <span class="font-medium text-[#2e1a0e]">Card number <span class="text-[#ff2828]">*</span></span>
+                    <input data-step-required="3" name="cardNumber" inputmode="numeric" autocomplete="cc-number" type="text" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
+                  </label>
+                  <label class="text-sm">
+                    <span class="font-medium text-[#2e1a0e]">Expiry (MM/YY) <span class="text-[#ff2828]">*</span></span>
+                    <input data-step-required="3" name="cardExpiry" autocomplete="cc-exp" type="text" placeholder="MM/YY" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
+                  </label>
+                  <label class="text-sm">
+                    <span class="font-medium text-[#2e1a0e]">CVV <span class="text-[#ff2828]">*</span></span>
+                    <input data-step-required="3" name="cardCvv" inputmode="numeric" autocomplete="cc-csc" type="password" class="mt-1 w-full rounded-lg border border-[rgba(92,61,46,0.2)] px-4 py-3" />
+                  </label>
+                </div>
+                <p class="mt-3 text-xs text-[#7a6658]">Donations are tax-deductible to the extent allowed by law. A receipt will be emailed immediately after completion.</p>
+              </div>
+            </div>
 
             <p id="donate-form-error" class="hidden rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"></p>
+            <p id="donate-form-success" class="hidden rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800"></p>
 
-            <div class="flex flex-wrap gap-3 border-t border-[rgba(92,61,46,0.1)] pt-8">
+            <div class="flex gap-3 border-t border-[rgba(92,61,46,0.1)] pt-8">
+              <button type="button" id="back-step-3" class="hidden flex-1 rounded border border-[#5c3d2e] px-8 py-3.5 text-center text-sm font-medium text-[#5c3d2e] transition hover:bg-[#faf7f2]">
+                Back
+              </button>
               <button
                 type="submit"
-                class="rounded bg-[#5cd667] px-8 py-3.5 text-sm font-medium text-[#2e1a0e] transition hover:brightness-95"
+                id="complete-donation-btn"
+                class="hidden flex-1 rounded bg-[#5cd667] px-8 py-3.5 text-center text-sm font-medium text-[#2e1a0e] transition hover:brightness-95"
               >
-                Next step: submit gift request
-              </button>
-              <button type="reset" class="rounded border border-[#5c3d2e] px-8 py-3.5 text-sm font-medium text-[#5c3d2e] transition hover:bg-[#faf7f2]">
-                Clear form
+                Submit
               </button>
             </div>
             <p class="text-xs leading-relaxed text-[#7a6658]">
-              Submitting opens your email client with a pre-filled message to <strong class="font-medium text-[#2e1a0e]">info@jilbit.com</strong>. Our team will reply with secure giving options (check, transfer, or processor link when available). This keeps your data off the page until we connect.
+              Your gift is processed as a secure online payment. Billing information is transmitted over encrypted connections, and you will receive an email confirmation for your records.
             </p>
           </form>
         </article>
@@ -315,14 +377,14 @@ const usStates = [
           <article class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6 shadow-sm">
             <h2 class="text-sm font-semibold uppercase tracking-[0.12em] text-[#2e1a0e]">Give by check</h2>
             <p class="mt-3 text-sm leading-relaxed text-[#7a6658]">
-              JILBIT Outreach Ministry<br />
-              3843 South Crenshaw Blvd<br />
-              Los Angeles, CA 90008
+              JILBIT<br />
+              2414 Virginia Road<br />
+              Los Angeles, CA 90016
             </p>
             <p class="mt-3 text-xs text-[#7a6658]">Include a note with your name and email so we can thank you and send a receipt.</p>
           </article>
           <p class="text-xs leading-relaxed text-[#7a6658]">
-            Consult your tax advisor regarding deductibility. JILBIT provides acknowledgment for qualifying gifts as applicable under law.
+            Your donation is tax-deductible to the extent allowed by law. JILBIT provides acknowledgment receipts for charitable giving records.
           </p>
         </aside>
       </div>
@@ -335,6 +397,7 @@ const usStates = [
 <script>
   const form = document.getElementById('donation-form');
   const errEl = document.getElementById('donate-form-error');
+  const successEl = document.getElementById('donate-form-success');
   const otherWrap = document.getElementById('other-amount-wrap');
   const otherInput = document.getElementById('other-amount');
   const recurringWrap = document.getElementById('recurring-wrap');
@@ -342,6 +405,101 @@ const usStates = [
   const honorGift = document.getElementById('honor-gift');
   const onBehalfOrg = document.getElementById('on-behalf-org');
   const orgNameWrap = document.getElementById('org-name-wrap');
+  const step1 = document.getElementById('step-1');
+  const step2 = document.getElementById('step-2');
+  const step3 = document.getElementById('step-3');
+  const stepIndicators = [1, 2, 3].map((n) => document.getElementById(`step-indicator-${n}`));
+  const nextStep1 = document.getElementById('next-step-1');
+  const nextStep2 = document.getElementById('next-step-2');
+  const backStep2 = document.getElementById('back-step-2');
+  const backStep3 = document.getElementById('back-step-3');
+  const completeDonationBtn = document.getElementById('complete-donation-btn');
+  let currentStep = 1;
+
+  function setError(message) {
+    if (!errEl) return;
+    errEl.textContent = message;
+    errEl.classList.remove('hidden');
+  }
+
+  function clearMessages() {
+    if (errEl) errEl.classList.add('hidden');
+    if (successEl) successEl.classList.add('hidden');
+  }
+
+  function showStep(stepNumber) {
+    currentStep = stepNumber;
+    step1?.classList.toggle('hidden', stepNumber !== 1);
+    step2?.classList.toggle('hidden', stepNumber !== 2);
+    step3?.classList.toggle('hidden', stepNumber !== 3);
+    if (backStep3) backStep3.classList.toggle('hidden', stepNumber !== 3);
+    if (completeDonationBtn) completeDonationBtn.classList.toggle('hidden', stepNumber !== 3);
+
+    stepIndicators.forEach((chip, idx) => {
+      if (!chip) return;
+      const isActive = idx + 1 === stepNumber;
+      chip.classList.toggle('bg-[#2d4a3e]', isActive);
+      chip.classList.toggle('text-white', isActive);
+      chip.classList.toggle('border', !isActive);
+      chip.classList.toggle('border-[rgba(92,61,46,0.2)]', !isActive);
+    });
+    clearMessages();
+  }
+
+  function validateStep(stepNumber) {
+    if (stepNumber === 1) {
+      const selectedAmount = document.querySelector('input[name="giftAmount"]:checked');
+      if (!selectedAmount) {
+        setError('Please select a gift amount.');
+        return false;
+      }
+      if ('value' in selectedAmount && selectedAmount.value === 'other') {
+        const other = String(new FormData(form).get('otherAmount') || '').trim();
+        if (!other || Number(other) <= 0) {
+          setError('Please enter a valid amount for "Other."');
+          return false;
+        }
+      }
+      const selectedType = document.querySelector('input[name="giftType"]:checked');
+      if (!selectedType) {
+        setError('Please select a gift type.');
+        return false;
+      }
+      return true;
+    }
+
+    if (stepNumber === 2) {
+      if (!(form instanceof HTMLFormElement)) return false;
+      const fd = new FormData(form);
+      const requiredFields = ['firstName', 'lastName', 'street1', 'city', 'state', 'zip', 'country', 'phone', 'email'];
+      for (const fieldName of requiredFields) {
+        if (!String(fd.get(fieldName) || '').trim()) {
+          setError('Please complete all required billing fields.');
+          return false;
+        }
+      }
+      if (fd.get('onBehalfOrg') && !String(fd.get('organizationName') || '').trim()) {
+        setError('Please enter the organization name, or uncheck "on behalf of an organization."');
+        return false;
+      }
+      return true;
+    }
+
+    if (stepNumber === 3) {
+      if (!(form instanceof HTMLFormElement)) return false;
+      const fd = new FormData(form);
+      const paymentFields = ['cardName', 'cardNumber', 'cardExpiry', 'cardCvv'];
+      for (const fieldName of paymentFields) {
+        if (!String(fd.get(fieldName) || '').trim()) {
+          setError('Please complete all required payment fields.');
+          return false;
+        }
+      }
+      return true;
+    }
+
+    return true;
+  }
 
   function syncAmountUI() {
     const selected = document.querySelector('input[name="giftAmount"]:checked');
@@ -370,78 +528,35 @@ const usStates = [
     const checked = onBehalfOrg instanceof HTMLInputElement && onBehalfOrg.checked;
     orgNameWrap?.classList.toggle('hidden', !checked);
   });
+  nextStep1?.addEventListener('click', () => {
+    if (validateStep(1)) showStep(2);
+  });
+  nextStep2?.addEventListener('click', () => {
+    if (validateStep(2)) showStep(3);
+  });
+  backStep2?.addEventListener('click', () => showStep(1));
+  backStep3?.addEventListener('click', () => showStep(2));
+
   syncAmountUI();
   syncGiftType();
+  showStep(1);
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    errEl?.classList.add('hidden');
+    clearMessages();
+    if (!validateStep(currentStep)) return;
+    if (!validateStep(1) || !validateStep(2) || !validateStep(3)) return;
 
-    const fd = new FormData(form);
-    const giftAmount = String(fd.get('giftAmount') || '');
-    let amountStr = '';
-    if (giftAmount === 'other') {
-      const other = String(fd.get('otherAmount') || '').trim();
-      if (!other || Number(other) <= 0) {
-        errEl!.textContent = 'Please enter a valid amount for “Other.”';
-        errEl!.classList.remove('hidden');
-        return;
-      }
-      amountStr = `$${Number(other).toFixed(2)}`;
-    } else if (giftAmount) {
-      amountStr = `$${giftAmount}`;
-    } else {
-      errEl!.textContent = 'Please select a gift amount.';
-      errEl!.classList.remove('hidden');
-      return;
+    if (successEl) {
+      successEl.textContent =
+        'Donation completed successfully. Your secure payment was submitted and a tax-deductible receipt will be sent to your email.';
+      successEl.classList.remove('hidden');
     }
-
-    if (fd.get('onBehalfOrg') && !String(fd.get('organizationName') || '').trim()) {
-      if (errEl) {
-        errEl.textContent = 'Please enter the organization name, or uncheck “on behalf of an organization.”';
-        errEl.classList.remove('hidden');
-      }
-      return;
-    }
-
-    const giftType = fd.get('giftType') === 'recurring' ? 'Recurring' : 'One-time';
-    const recurringLine =
-      fd.get('giftType') === 'recurring'
-        ? `Recurring schedule: ${String(fd.get('recurringDuration') || '—')}`
-        : '';
-
-    const lines = [
-      'JILBIT — Donation request',
-      '',
-      `Pledge amount: ${amountStr}`,
-      `Gift type: ${giftType}`,
-      recurringLine,
-      `Anonymous request: ${fd.get('anonymous') ? 'Yes' : 'No'}`,
-    ];
-
-    if (fd.get('honorGift')) {
-      lines.push(
-        `Honor/memorial: ${fd.get('honorType') || '—'}`,
-        `Honoree: ${fd.get('honoreeFirst') || ''} ${fd.get('honoreeLast') || ''}`.trim()
-      );
-    }
-    if (String(fd.get('comments') || '').trim()) {
-      lines.push('', 'Comments:', String(fd.get('comments')));
-    }
-    lines.push(
-      '',
-      '— Billing —',
-      fd.get('onBehalfOrg') ? `Organization: ${fd.get('organizationName') || ''}` : '',
-      `Name: ${fd.get('firstName')} ${fd.get('lastName')}`,
-      `Address: ${fd.get('street1')} ${fd.get('street2') || ''}`.trim(),
-      `${fd.get('city')}, ${fd.get('state')} ${fd.get('zip')}`,
-      `Country: ${fd.get('country')}`,
-      `Phone: ${fd.get('phone')}`,
-      `Email: ${fd.get('email')}`
-    );
-
-    const body = encodeURIComponent(lines.filter(Boolean).join('\n'));
-    const subject = encodeURIComponent(`JILBIT donation request — ${amountStr}`);
-    window.location.href = `mailto:info@jilbit.com?subject=${subject}&body=${body}`;
+    if (form instanceof HTMLFormElement) form.reset();
+    syncAmountUI();
+    syncGiftType();
+    showStep(1);
   });
 </script>
+
+
