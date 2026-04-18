@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jilbit.com/sitemap-index.xml
+# Sitemaps
+Sitemap: https://jilbit.com/sitemap.xml
+
+# Optional: machine-readable site summary for AI systems (see https://llmstxt.org/)
+# https://jilbit.com/llms.txt
