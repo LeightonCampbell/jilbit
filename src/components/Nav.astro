@@ -68,7 +68,7 @@ const mobileLinks = [
         <a href="/" class="justify-self-start">
           <img src="/brand/jIlbit-logo.png" alt="JILBIT" class="h-8 w-auto object-contain md:h-10" loading="eager" decoding="async" />
         </a>
-        <div aria-hidden="true"></div>
+        <p class="text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-[#5cd667]">Jesus is Lord, believe it!</p>
         <nav class="flex flex-wrap items-center justify-end gap-x-3 text-[10px] font-medium uppercase tracking-[0.12em] text-white/75 md:gap-x-4" aria-label="Utility links">
           {
             utilityRight.map(({ href, label, goal }) => (
@@ -158,8 +158,8 @@ const mobileLinks = [
   <script>
     const desktopHeader = document.getElementById('site-header');
     const compactBreakpoint = 768;
-    const compactEnterY = 320;
-    const compactExitY = 260;
+    const compactEnterY = 200;
+    const compactExitY = 160;
     let ticking = false;
     let isCompact = false;
 
