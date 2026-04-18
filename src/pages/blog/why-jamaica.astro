@@ -1,28 +1,25 @@
 ---
-import { getCollection, render } from 'astro:content';
+/**
+ * Dedicated route: loads markdown directly so /blog/why-jamaica/ always works
+ * (no dependency on getEntry/content store lookup, which can fail in dev).
+ */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MissionCtaBand from '../../components/MissionCtaBand.astro';
+import { Content, frontmatter } from '../../content/blog/why-jamaica.md';
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts
-    .filter((post) => post.id !== 'why-jamaica')
-    .map((post) => ({ params: { slug: post.id }, props: { post } }));
-}
-
-const { post } = Astro.props;
-const { Content } = await render(post);
+const pubDate =
+  frontmatter.pubDate instanceof Date ? frontmatter.pubDate : new Date(String(frontmatter.pubDate));
 ---
 
-<BaseLayout title={`${post.data.title} | JILBIT Blog`} description={post.data.description}>
+<BaseLayout title={`${frontmatter.title} | JILBIT Blog`} description={frontmatter.description}>
   <section class="relative overflow-hidden bg-[#000000] px-6 py-14 text-left md:py-20">
     <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,146,42,0.14),transparent_55%)]" />
     <div class="content-shell relative">
       <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#5cd667]">
-        {post.data.pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        {pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
       </p>
-      <h1 class="mt-4 max-w-4xl text-4xl leading-tight text-[#faf7f2] md:text-5xl lg:text-6xl">{post.data.title}</h1>
-      <p class="mt-6 max-w-3xl text-base text-[#faf7f2]/70 md:text-lg">{post.data.description}</p>
+      <h1 class="mt-4 max-w-4xl text-4xl leading-tight text-[#faf7f2] md:text-5xl lg:text-6xl">{frontmatter.title}</h1>
+      <p class="mt-6 max-w-3xl text-base text-[#faf7f2]/70 md:text-lg">{frontmatter.description}</p>
     </div>
   </section>
 
