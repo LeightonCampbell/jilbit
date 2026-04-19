@@ -1,283 +1,403 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/home-magazine.css';
 import { jamaicaFund, jamaicaFundProgress } from '../data/fundraising';
 import { mayFundraiserEvent } from '../data/events';
 
-const articleFeatures = [
-  {
-    category: 'Theology',
-    title: 'The Top 10 Questions Christians Are Still Debating',
-    author: 'Veronica Olson Neffinger',
-    href: '/trending',
-    style: 'from-[#2e1a0e] to-[#5c3d2e]',
-    icon: 'Th.',
-  },
-  {
-    category: 'Christian Living',
-    title: 'What Should Christians Do When Government Feels Unstable?',
-    author: 'Peyton Garland',
-    href: '/trending',
-    style: 'from-[#2d4a3e] to-[#4a7a6a]',
-    icon: 'C.L.',
-  },
-  {
-    category: 'Current Events',
-    title: 'What Christians Should Understand About the Middle East Conflict',
-    author: 'Judy McEachran',
-    href: '/trending',
-    style: 'from-[#3a2448] to-[#6b4c8a]',
-    icon: 'C.E.',
-  },
-];
+const { goalAmount, raisedAmount } = jamaicaFund;
+const { progressPercent } = jamaicaFundProgress;
 ---
 
-<BaseLayout
-  title="JILBIT | Jesus Is Lord, Believe It"
-  description="JILBIT is a ministry movement centered on the message: Jesus Is Lord, Believe It."
->
-  <section id="home-hero" class="relative overflow-hidden bg-[#000000] px-6 py-20 text-center md:py-24">
-    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,146,42,0.14),transparent_55%)]" />
-    <div class="content-shell relative">
-      <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#5cd667]">Faith · Community · Mission</p>
-      <h1 class="mx-auto mt-5 max-w-4xl text-4xl leading-tight text-[#faf7f2] md:text-7xl">
-        Your faith, working in the places you must go.
-      </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-base text-[#faf7f2]/70 md:text-lg">
-        Confidence for the believer. Clarity for the seeker. Conviction for the world.
-      </p>
-      <div class="mt-10 flex flex-wrap justify-center gap-3">
-        <a href="/outreach#fundraiser" class="rounded bg-[#5cd667] px-7 py-3 text-sm font-medium text-[#2e1a0e] transition hover:brightness-95">
-          Join the Jamaica Mission
-        </a>
-        <a href="/blog" class="rounded border border-[#faf7f2]/35 px-7 py-3 text-sm font-medium text-[#faf7f2] transition hover:border-[#c9922a] hover:bg-[#c9922a]/10">
-          Read the Blog
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[#2d4a3e] px-6 py-7 text-white">
-    <div class="content-shell grid gap-5 text-center sm:grid-cols-2 lg:grid-cols-4">
-      <div>
-        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Fundraiser Goal</p>
-        <p class="mt-1 text-xl font-bold md:text-2xl">${jamaicaFund.goalAmount.toLocaleString()}</p>
-      </div>
-      <div>
-        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Raised So Far</p>
-        <p class="mt-1 text-xl font-bold md:text-2xl">${jamaicaFund.raisedAmount.toLocaleString()}</p>
-      </div>
-      <div>
-        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Next Event</p>
-        <p class="mt-1 text-xl font-bold md:text-2xl">{jamaicaFund.nextEventLabel}</p>
-      </div>
-      <div>
-        <p class="text-xs uppercase tracking-[0.12em] text-[#b8d4c8]">Location</p>
-        <p class="mt-1 text-xl font-bold md:text-2xl">{jamaicaFund.locationShort}</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="fundraiser" class="bg-[#f0ebe0] px-6 py-16 md:py-20">
-    <div class="content-shell grid gap-10 lg:grid-cols-2">
-      <div>
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#5cd667]">Upcoming Fundraiser</p>
-        <h2 class="mt-3 text-4xl leading-tight text-[#000000] md:text-5xl">{mayFundraiserEvent.title}</h2>
-        <p class="mt-4 text-sm text-[#7a6658]">
-          <span class="font-semibold text-[#ff2828]">{mayFundraiserEvent.dateLabel}</span> · {mayFundraiserEvent.timeLabel}<br />
-          {mayFundraiserEvent.location}
-        </p>
-        <p class="mt-5 max-w-xl text-[#7a6658]">
-          Come eat, fellowship, and be a part of something bigger. Every plate sold goes directly toward our Jamaica mission outreach - bringing hope, resources, and the gospel to communities in need.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={`tel:${mayFundraiserEvent.callPhoneHref}`} class="rounded bg-[#ff2828] px-6 py-3 text-sm font-medium text-white transition hover:brightness-95">
-            Call to Preorder: {mayFundraiserEvent.callPhoneDisplay}
-          </a>
-          <a href={mayFundraiserEvent.orderUrl} class="rounded border border-[#5c3d2e] px-6 py-3 text-sm font-medium text-[#5c3d2e] transition hover:bg-[#faf7f2]">
-            Order Online
-          </a>
+<BaseLayout title="JILBIT — Faith for Real Life" description="Faith for real life. JILBIT is a Christian ministry rooted in Los Angeles, serving Jamaica and beyond.">
+  <div class="home-magazine">
+  <div class="hero">
+    <div class="hero-grid">
+      <a href="/trending" class="hero-main">
+        <div class="img-wrap">
+          <div class="ph ph-1"><span class="ph-icon">Features</span></div>
         </div>
-      </div>
-
-      <article class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-6">
-        <div class="mb-3 flex items-end justify-between text-sm text-[#7a6658]">
-          <span>Jamaica Mission Fund</span>
-          <strong class="text-xl text-[#2e1a0e]">${jamaicaFund.raisedAmount.toLocaleString()} raised</strong>
-        </div>
-        <p class="mb-3 text-right text-sm text-[#7a6658]">of ${jamaicaFund.goalAmount.toLocaleString()} goal ({jamaicaFundProgress.progressPercent}%)</p>
-        <div class="h-2.5 overflow-hidden rounded-full bg-[#f0ebe0]">
-          <div class="h-full rounded-full bg-[#5cd667]" style={`width:${jamaicaFundProgress.progressPercent}%`} />
-        </div>
-        <div class="mt-5 grid gap-2 sm:grid-cols-2">
-          {mayFundraiserEvent.menu.map((item) => {
-            const [dish, price] = item.split(' - ');
-            return (
-              <div class="rounded-md border border-[rgba(92,61,46,0.15)] bg-[#faf7f2] px-3 py-2.5 text-sm">
-                <span class="block font-medium text-[#2e1a0e]">{dish}</span>
-                <span class="text-[#ff2828]">{price}</span>
-              </div>
-            );
-          })}
-        </div>
-        <p class="mt-4 text-center text-xs text-[#7a6658]">{mayFundraiserEvent.proceedsText}</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="bg-[#2e1a0e] px-6 py-14 text-center">
-    <div class="content-shell">
-      <blockquote class="mx-auto max-w-3xl text-2xl italic leading-relaxed text-[#ffffff] md:text-3xl">
-        "Look to the LORD and his strength; seek his face always. Remember the wonders he has done, his miracles, and the judgments he pronounced."
-      </blockquote>
-      <p class="mt-4 text-xs uppercase tracking-[0.14em]">
-        <span class="text-[#ffffff]">1 Chronicles 16:11-12</span>
-        <span class="text-[#ffffff]"> · </span>
-        <span class="text-[#ffffff]">Verse of the Day</span>
-      </p>
-    </div>
-  </section>
-
-  <section id="articles" class="content-shell px-6 py-16 md:py-20">
-    <div class="mb-8 flex items-end justify-between border-b border-[rgba(92,61,46,0.15)] pb-4">
-      <div>
-        <p class="text-xs uppercase tracking-[0.18em] text-[#c9922a]">From the Blog</p>
-        <h2 class="mt-2 text-4xl text-[#2e1a0e]">What We're Reading</h2>
-      </div>
-      <a href="/blog" class="text-sm text-[#c9922a] underline underline-offset-4">View all articles →</a>
-    </div>
-
-    <div class="grid gap-6 lg:grid-cols-[2fr_1fr]">
-      <a href={articleFeatures[0].href} class="block overflow-hidden rounded-lg border border-[rgba(92,61,46,0.15)] bg-white transition hover:-translate-y-1 hover:shadow-lg">
-        <div class={`aspect-video bg-gradient-to-br ${articleFeatures[0].style} flex items-center justify-center`}>
-          <span class="text-6xl italic text-white/20">{articleFeatures[0].icon}</span>
-        </div>
-        <div class="p-6">
-          <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">{articleFeatures[0].category}</p>
-          <h3 class="mt-2 text-3xl leading-tight text-[#2e1a0e]">{articleFeatures[0].title}</h3>
-          <p class="mt-3 text-sm text-[#7a6658]">By {articleFeatures[0].author}</p>
+        <div class="hero-main-body">
+          <span class="tag">Theology · Cover Story</span>
+          <h1>The Top 10 Questions Christians Are Still Debating — And What Jesus Said About Each</h1>
+          <p>
+            From predestination to prosperity gospel, believers wrestle with hard questions. The answers may be closer than we think.
+          </p>
+          <div class="byline">By Veronica Olson Neffinger · Read feature →</div>
         </div>
       </a>
-
-      <div class="space-y-6">
-        {articleFeatures.slice(1).map((article) => (
-          <a href={article.href} class="block overflow-hidden rounded-lg border border-[rgba(92,61,46,0.15)] bg-white transition hover:-translate-y-1 hover:shadow-lg">
-            <div class={`aspect-[16/7] bg-gradient-to-br ${article.style} flex items-center justify-center`}>
-              <span class="text-5xl italic text-white/20">{article.icon}</span>
-            </div>
-            <div class="p-5">
-              <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">{article.category}</p>
-              <h3 class="mt-2 text-xl leading-snug text-[#2e1a0e]">{article.title}</h3>
-              <p class="mt-2 text-xs text-[#7a6658]">By {article.author}</p>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-
-    <div class="mt-6 grid gap-4 md:grid-cols-3">
-      <a href="/blog/why-jamaica/" class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md">
-        <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">Mission</p>
-        <h3 class="mt-2 text-xl text-[#2e1a0e]">Why Jamaica?</h3>
+      <a href="/trending" class="hero-side-top">
+        <div>
+          <div class="img-wrap">
+            <div class="ph ph-4"><span class="ph-icon">C.L.</span></div>
+          </div>
+          <span class="tag green">Christian Living</span>
+          <h3>What Should Christians Do When Government Feels Unstable?</h3>
+          <div class="byline">By Peyton Garland</div>
+        </div>
       </a>
-      <a href="/trending" class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md">
-        <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">Theology</p>
-        <h3 class="mt-2 text-xl text-[#2e1a0e]">Did Jesus Die for Everyone?</h3>
-      </a>
-      <a href="/trending" class="rounded-lg border border-[rgba(92,61,46,0.15)] bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md">
-        <p class="text-xs uppercase tracking-[0.14em] text-[#c9922a]">Church</p>
-        <h3 class="mt-2 text-xl text-[#2e1a0e]">The Seven Last Words of Jesus from the Cross</h3>
+      <a href="/trending" class="hero-side-bot">
+        <div>
+          <div class="img-wrap">
+            <div class="ph ph-3"><span class="ph-icon">C.E.</span></div>
+          </div>
+          <span class="tag rust">Current Events</span>
+          <h3>What Christians Should Understand About the Middle East Conflict</h3>
+          <div class="byline">By Judy McEachran</div>
+        </div>
       </a>
     </div>
-  </section>
-
-  <section class="bg-[#f0ebe0] px-6 py-16">
-    <div class="content-shell grid gap-10 lg:grid-cols-[1fr_2fr]">
-      <div>
-        <p class="text-xs uppercase tracking-[0.18em] text-[#c9922a]">Trending Now</p>
-        <h2 class="mt-2 text-4xl leading-tight text-[#2e1a0e]">What the community is talking about</h2>
-        <p class="mt-4 text-[#7a6658]">Join thousands of believers wrestling with faith in the modern world.</p>
-      </div>
-      <ol class="space-y-1">
-        {[
-          'Should Christians Use AI to Pray?',
-          'Reclaim Your Peace and Replace Infinite Scrolling',
-          'How Is the Conflict with Iran Affecting Everyday American Life?',
-          'Why Are a Record Number of Americans Identifying as Political Moderates?',
-          'Should We Reconsider How We Share the Gospel with Gen Z?',
-        ].map((title, idx) => (
-          <li class="flex items-start gap-4 border-b border-[rgba(92,61,46,0.15)] py-3 last:border-b-0">
-            <span class="min-w-8 text-2xl text-[#f0d9a8]">{String(idx + 1).padStart(2, '0')}</span>
-            <a href="/trending" class="text-[#2e1a0e] transition hover:text-[#c9922a]">{title}</a>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <section class="bg-[#a84b2f] px-6 py-16 text-center">
-    <div class="content-shell">
-      <h2 class="text-4xl text-white md:text-5xl">Be part of the Jamaica mission</h2>
-      <p class="mx-auto mt-4 max-w-2xl text-white/80">
-        Whether you give, go, or pray - there's a place for you in this work. Every gift brings us closer to serving those communities.
-      </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/donate" class="rounded bg-white px-7 py-3 text-sm font-medium text-[#a84b2f] transition hover:opacity-90">
-          Donate to the Mission
-        </a>
-        <a href="/outreach" class="rounded border border-white/50 px-7 py-3 text-sm font-medium text-white transition hover:border-white">
-          Learn About Our Outreach
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <div
-    id="hero-scroll-banner"
-    class="pointer-events-none fixed inset-x-0 bottom-0 z-40 translate-y-full border-t border-[#5cd667]/30 bg-black px-6 py-3 text-center opacity-0 transition-all duration-300"
-    aria-hidden="true"
-  >
-    <p class="text-sm font-medium tracking-wide text-[#5cd667] md:text-base">Who is Jesus Christ? Why should I know?</p>
   </div>
 
-  <script>
-    const hero = document.getElementById('home-hero');
-    const banner = document.getElementById('hero-scroll-banner');
-    const footer = document.getElementById('site-footer');
+  <div class="action-strip" id="donate">
+    <div class="action-strip-inner">
+      <div class="action-block donate">
+        <div class="eyebrow">Jamaica Mission Fundraiser</div>
+        <h3>{mayFundraiserEvent.title} — Help Us Reach ${goalAmount.toLocaleString()}</h3>
+        <p>
+          {mayFundraiserEvent.dateLabel} · {mayFundraiserEvent.timeLabel} · {mayFundraiserEvent.location}. Every plate of jerk chicken, brown stew chicken, or fried fish funds the Jamaica mission directly.
+        </p>
+        <div class="progress-wrap">
+          <div class="progress-row">
+            <span>Mission Fund</span>
+            <strong
+              >${raisedAmount.toLocaleString()} of ${goalAmount.toLocaleString()} raised ({progressPercent}%)</strong
+            >
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style={`width: ${progressPercent}%`} /></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <a href={`tel:${mayFundraiserEvent.callPhoneHref}`} class="btn-gold-lg">Call to Preorder: {mayFundraiserEvent.callPhoneDisplay}</a>
+          <a href={mayFundraiserEvent.orderUrl} class="btn-white-lg">Order Online</a>
+        </div>
+      </div>
+      <div class="action-strip-divider" aria-hidden="true"></div>
+      <div class="action-block mission" id="mission">
+        <div class="eyebrow">Active &amp; Ongoing Mission</div>
+        <h3>Be the Hands and Feet of Jesus in Jamaica</h3>
+        <p>
+          We are actively serving communities in Jamaica with the gospel, resources, and practical care. Whether you give, pray, or go — there is a place for you in this work.
+        </p>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <a href="/outreach" class="btn-gold-lg">Join the Mission</a>
+          <a href="/blog/why-jamaica/" class="btn-white-lg">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    if (hero && banner) {
-      let heroOutOfView = false;
-      let footerVisible = false;
+  <div class="content-wrap">
+    <div>
+      <div class="jesus-feature" style="margin-bottom:2rem">
+        <div class="eyebrow">Faith Meets the Headlines</div>
+        <h2>Jesus Has a Word for Every Crisis We Face</h2>
+        <p>
+          Current events can feel overwhelming — war, economic anxiety, political chaos. But the Gospel speaks directly into each one. Explore how the teachings of Christ apply to what's happening right now.
+        </p>
+        <div class="jesus-links">
+          <a href="/trending" class="jesus-link">
+            <div>
+              <div class="jesus-link-tag">Middle East Conflict</div>
+              <h4>My Family Resisted Iran's Regime. My Hope Is Not in Foreign Intervention.</h4>
+            </div>
+          </a>
+          <a href="/trending" class="jesus-link">
+            <div>
+              <div class="jesus-link-tag">Political Instability</div>
+              <h4>What Should Christians Do When Government Feels Unstable?</h4>
+            </div>
+          </a>
+          <a href="/trending" class="jesus-link">
+            <div>
+              <div class="jesus-link-tag">Technology &amp; Faith</div>
+              <h4>Should Christians Use AI to Pray? A Biblical Framework</h4>
+            </div>
+          </a>
+        </div>
+      </div>
 
-      const updateBannerVisibility = () => {
-        const showBanner = heroOutOfView && !footerVisible;
-        banner.classList.toggle('opacity-0', !showBanner);
-        banner.classList.toggle('translate-y-full', !showBanner);
-        banner.classList.toggle('opacity-100', showBanner);
-        banner.classList.toggle('translate-y-0', showBanner);
-        banner.classList.toggle('pointer-events-none', !showBanner);
-        banner.setAttribute('aria-hidden', showBanner ? 'false' : 'true');
-      };
+      <div class="topic-section">
+        <div class="section-head">
+          <h2>News</h2>
+          <a href="/trending">View all →</a>
+        </div>
+        <div class="topic-three">
+          <a href="/trending" class="topic-card">
+            <div class="img-wrap"><div class="ph ph-4"><span class="ph-icon">News</span></div></div>
+            <span class="tag">News</span>
+            <h3>Beth Moore Is Leaving Her Ego Behind — And the Church Should Watch</h3>
+            <div class="byline">By Bob Smietana</div>
+          </a>
+          <a href="/trending" class="topic-card">
+            <div class="img-wrap"><div class="ph ph-7"><span class="ph-icon">News</span></div></div>
+            <span class="tag">News</span>
+            <h3>A New Approach to Native Missions Starts with the Past</h3>
+            <div class="byline">By Janel Breitenstein</div>
+          </a>
+          <a href="/trending" class="topic-card">
+            <div class="img-wrap"><div class="ph ph-3"><span class="ph-icon">News</span></div></div>
+            <span class="tag">News</span>
+            <h3>How Strait of Hormuz Closure Is Hurting Global Christian Aid</h3>
+            <div class="byline">By Jill Nelson</div>
+          </a>
+        </div>
+      </div>
 
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          heroOutOfView = !entry.isIntersecting;
-          updateBannerVisibility();
-        },
-        { threshold: 0.1 }
-      );
+      <hr class="divider" style="margin-bottom:2rem" />
 
-      observer.observe(hero);
+      <div class="topic-section">
+        <div class="section-head">
+          <h2>Theology</h2>
+          <a href="/trending">View all →</a>
+        </div>
+        <div class="article-list">
+          <a href="/trending" class="art-row">
+            <div class="art-thumb"><div class="ph ph-5"><span class="ph-icon">Th</span></div></div>
+            <div class="art-body">
+              <span class="tag">Theology</span>
+              <h3>Did Jesus Die for Everyone? A Deep Dive into Atonement Theology</h3>
+              <p>
+                Christians have debated the scope of the atonement for centuries. Here's why the answer matters deeply — for evangelism, assurance, and the character of God.
+              </p>
+              <div class="byline">By Veronica Olson Neffinger</div>
+            </div>
+          </a>
+          <a href="/trending" class="art-row">
+            <div class="art-thumb"><div class="ph ph-8"><span class="ph-icon">Th</span></div></div>
+            <div class="art-body">
+              <span class="tag">Theology</span>
+              <h3>What Is the Will of God? A Guide to Understanding Divine Purpose</h3>
+              <p>We pray for it, seek it, and wrestle with it — but do we actually know what God's will is?</p>
+              <div class="byline">Staff</div>
+            </div>
+          </a>
+          <a href="/trending" class="art-row">
+            <div class="art-thumb"><div class="ph ph-6"><span class="ph-icon">Th</span></div></div>
+            <div class="art-body">
+              <span class="tag">Theology</span>
+              <h3>Why Does a Good God Allow Us to Suffer So Much?</h3>
+              <p>Suffering is perhaps the oldest and hardest question in theology. Jesus doesn't give us an easy answer — but he gives us himself.</p>
+              <div class="byline">Staff</div>
+            </div>
+          </a>
+        </div>
+      </div>
 
-      if (footer) {
-        const footerObserver = new IntersectionObserver(
-          ([entry]) => {
-            footerVisible = entry.isIntersecting;
-            updateBannerVisibility();
-          },
-          { threshold: 0.1 }
-        );
-        footerObserver.observe(footer);
-      }
-    }
-  </script>
+      <hr class="divider" style="margin-bottom:2rem" />
+
+      <div class="topic-section">
+        <div class="section-head">
+          <h2>Christian Living</h2>
+          <a href="/blog">View all →</a>
+        </div>
+        <div class="topic-three">
+          <a href="/blog" class="topic-card">
+            <div class="img-wrap"><div class="ph ph-2"><span class="ph-icon">C.L.</span></div></div>
+            <span class="tag green">Christian Living</span>
+            <h3>7 Warning Signs That Legalism Is Sneaking into Your Faith</h3>
+            <div class="byline">Staff</div>
+          </a>
+          <a href="/blog" class="topic-card">
+            <div class="img-wrap"><div class="ph ph-7"><span class="ph-icon">C.L.</span></div></div>
+            <span class="tag green">Christian Living</span>
+            <h3>5 Ways to Find God's Purpose for Your Life</h3>
+            <div class="byline">Staff</div>
+          </a>
+          <a href="/blog" class="topic-card">
+            <div class="img-wrap"><div class="ph ph-1"><span class="ph-icon">C.L.</span></div></div>
+            <span class="tag green">Christian Living</span>
+            <h3>5 Questions to Ask Yourself When You Feel Like Giving Up</h3>
+            <div class="byline">Staff</div>
+          </a>
+        </div>
+      </div>
+
+      <hr class="divider" style="margin-bottom:2rem" />
+
+      <div class="topic-section">
+        <div class="section-head">
+          <h2>Church</h2>
+          <a href="/trending">View all →</a>
+        </div>
+        <div class="article-list">
+          <a href="/trending" class="art-row">
+            <div class="art-thumb"><div class="ph ph-5"><span class="ph-icon">Ch</span></div></div>
+            <div class="art-body">
+              <span class="tag rust">Church</span>
+              <h3>The Seven Last Words of Jesus from the Cross Explained</h3>
+              <p>Seven statements. Infinite depth. Understanding what Jesus said in his final hours changes everything about how we understand the gospel.</p>
+              <div class="byline">Staff</div>
+            </div>
+          </a>
+          <a href="/trending" class="art-row">
+            <div class="art-thumb"><div class="ph ph-3"><span class="ph-icon">Ch</span></div></div>
+            <div class="art-body">
+              <span class="tag rust">Church</span>
+              <h3>The Dark before the Dawn: The Significance of Holy Saturday</h3>
+              <p>Between Good Friday's devastation and Easter's triumph lies a day of holy silence — and it has something profound to say to us today.</p>
+              <div class="byline">Staff</div>
+            </div>
+          </a>
+          <a href="/trending" class="art-row">
+            <div class="art-thumb"><div class="ph ph-8"><span class="ph-icon">Ch</span></div></div>
+            <div class="art-body">
+              <span class="tag rust">Church</span>
+              <h3>Why Is Maundy Thursday a Significant Part of Holy Week?</h3>
+              <div class="byline">Staff</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <div class="verse-widget">
+        <div class="vw-label">Verse of the Day</div>
+        <blockquote>
+          "Look to the LORD and his strength; seek his face always. Remember the wonders he has done, his miracles, and the judgments he pronounced."
+        </blockquote>
+        <cite>1 Chronicles 16:11–12</cite>
+      </div>
+
+      <div class="fundraiser-widget">
+        <div class="fw-header">
+          <div class="fw-eyebrow">Upcoming Event</div>
+          <h3>{mayFundraiserEvent.title}</h3>
+        </div>
+        <div class="fw-body">
+          <div class="meta">
+            <strong>{mayFundraiserEvent.dateLabel} · {mayFundraiserEvent.timeLabel}</strong>
+            {mayFundraiserEvent.location}
+            <br />
+            All proceeds → Jamaica Mission
+          </div>
+          <div class="fw-progress-label">
+            <span>Raised</span>
+            <strong>${raisedAmount.toLocaleString()} / ${goalAmount.toLocaleString()}</strong>
+          </div>
+          <div class="fw-bar"><div class="fw-fill" style={`width: ${progressPercent}%`} /></div>
+          <div class="menu-items">
+            {
+              mayFundraiserEvent.menu.map((item) => {
+                const [name, price] = item.split(' - ');
+                return (
+                  <div class="mi">
+                    <span class="name">{name}</span>
+                    <span class="price">{price}</span>
+                  </div>
+                );
+              })
+            }
+          </div>
+          <p class="fw-note">{mayFundraiserEvent.proceedsText}</p>
+          <div class="fw-cta-row">
+            <a href={`tel:${mayFundraiserEvent.callPhoneHref}`} class="fw-btn fw-btn-primary">Call to Order</a>
+            <a href={mayFundraiserEvent.orderUrl} class="fw-btn fw-btn-outline">Order Online</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-widget">
+        <div class="mw-label">Active Mission</div>
+        <h3>Jamaica Outreach — Ongoing</h3>
+        <p>
+          We are actively on the ground in Jamaica, sharing the gospel and serving communities with tangible help. Your involvement makes the difference.
+        </p>
+        <div class="mission-stats">
+          <div class="mstat">
+            <div class="num">3</div>
+            <div class="lbl">Communities</div>
+          </div>
+          <div class="mstat">
+            <div class="num">2</div>
+            <div class="lbl">Years Active</div>
+          </div>
+          <div class="mstat">
+            <div class="num">100+</div>
+            <div class="lbl">Families Served</div>
+          </div>
+        </div>
+        <a href="/outreach" class="btn-mission">Get Involved →</a>
+      </div>
+
+      <div class="trending-widget">
+        <div class="section-head">
+          <h2>Trending Now</h2>
+        </div>
+        <ol class="trending-list">
+          <li class="trending-item">
+            <a href="/trending">
+              <span class="t-num">01</span>
+              <span class="t-title">Should Christians Use AI to Pray?</span>
+            </a>
+          </li>
+          <li class="trending-item">
+            <a href="/trending">
+              <span class="t-num">02</span>
+              <span class="t-title">Reclaim Your Peace and Replace Infinite Scrolling</span>
+            </a>
+          </li>
+          <li class="trending-item">
+            <a href="/trending">
+              <span class="t-num">03</span>
+              <span class="t-title">How Is the Conflict with Iran Affecting Everyday American Life?</span>
+            </a>
+          </li>
+          <li class="trending-item">
+            <a href="/trending">
+              <span class="t-num">04</span>
+              <span class="t-title">Why Are a Record Number of Americans Identifying as Political Moderates?</span>
+            </a>
+          </li>
+          <li class="trending-item">
+            <a href="/trending">
+              <span class="t-num">05</span>
+              <span class="t-title">Should We Reconsider How We Share the Gospel with Gen Z?</span>
+            </a>
+          </li>
+        </ol>
+      </div>
+
+      <div id="newsletter" class="newsletter-widget">
+        <h3>Stay Rooted in the Word</h3>
+        <p>Get JILBIT's weekly roundup of faith, current events, and Jamaica mission updates delivered to your inbox.</p>
+        <div class="nl-form">
+          <input type="email" class="nl-input" placeholder="Your email address" name="email" autocomplete="email" />
+          <a href="mailto:info@jilbit.com?subject=JILBIT%20newsletter%20signup" class="nl-btn">Subscribe — It's Free</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="full-section">
+    <div class="full-inner">
+      <div class="section-head">
+        <h2>Stories of Faith</h2>
+        <a href="/blog">View all testimonies →</a>
+      </div>
+      <div class="testimony-grid">
+        <a href="/blog" class="testimony-card">
+          <div class="img-wrap"><div class="ph ph-2"><span class="ph-icon">T</span></div></div>
+          <span class="tag">Testimony</span>
+          <h3>I Ran from God and My Identity. Then I Read the New Testament.</h3>
+          <p class="excerpt">A story of wandering, searching, and finally being found by the grace of Christ.</p>
+          <span class="read-link">Read story →</span>
+        </a>
+        <a href="/blog" class="testimony-card">
+          <div class="img-wrap"><div class="ph ph-6"><span class="ph-icon">T</span></div></div>
+          <span class="tag">Testimony</span>
+          <h3>Journalism Was My Religion. Then I Encountered Jesus Christ.</h3>
+          <p class="excerpt">A reporter discovers that the greatest story he ever covered was the one happening inside him.</p>
+          <span class="read-link">Read story →</span>
+        </a>
+        <a href="/blog/why-jamaica/" class="testimony-card">
+          <div class="img-wrap"><div class="ph ph-4"><span class="ph-icon">T</span></div></div>
+          <span class="tag green">Jamaica Mission</span>
+          <h3>From Kingston to Crenshaw: How the Jamaica Mission Changed My Life</h3>
+          <p class="excerpt">A volunteer's account of what they found when they answered the call to serve.</p>
+          <span class="read-link">Read story →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  </div>
 </BaseLayout>

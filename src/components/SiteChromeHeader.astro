@@ -1,0 +1,39 @@
+---
+const path = Astro.url.pathname;
+const activeTrending = path.startsWith('/trending');
+const activeBlog = path.startsWith('/blog');
+const activeOutreach = path.startsWith('/outreach');
+---
+
+<div class="site-chrome site-chrome--header">
+  <div class="util-bar">
+    <p class="util-tagline">Jesus is Lord, believe it!</p>
+  </div>
+
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">JIL<span>BIT</span></a>
+      <ul class="nav-links">
+        <li>
+          <a href="/trending" class:list={[{ active: activeTrending }]}>Trending</a>
+        </li>
+        <li>
+          <a href="/blog" class:list={[{ active: activeBlog }]}>Christian Living</a>
+        </li>
+        <li>
+          <a href="/outreach" class:list={[{ active: activeOutreach }]}>Outreach</a>
+        </li>
+        <li>
+          <a href="/blog" class:list={[{ active: activeBlog }]}>Blog</a>
+        </li>
+        <li>
+          <a href="/trending" class:list={[{ active: activeTrending }]}>News</a>
+        </li>
+      </ul>
+      <div class="nav-actions">
+        <a href="/outreach" class="btn btn-outline-nav">Get Involved</a>
+        <a href="/donate" class="btn btn-gold">Donate</a>
+      </div>
+    </div>
+  </nav>
+</div>
