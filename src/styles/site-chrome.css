@@ -12,7 +12,8 @@
   color: var(--text-md);
 }
 
-.site-chrome .util-bar {
+/* util-bar + nav are body-level siblings so nav can use position:sticky (no wrapper) */
+.site-chrome.util-bar {
   background: var(--navy);
   padding: 0.5rem 1.5rem;
   display: flex;
@@ -30,7 +31,7 @@
   color: #5cd667;
 }
 
-.site-chrome .nav {
+.site-chrome.nav {
   background: #ffffff;
   border-bottom: 1px solid var(--navy);
   position: sticky;
